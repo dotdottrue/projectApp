@@ -10,6 +10,13 @@
 
     <string name="act_hinzufuegen">Projekt Hinzufügen</string>
     <string name="title_activity_project_detail">ProjectDetail</string>
+    <string name="termin">Termin/Meilenstein</string>
+    <string name="disc">Diskussion</string>
+
+
+    <color name="Black">#000000</color>
+    <color name="ExpandChildBackground">#FFAFABAB</color>
+    <color name="ExpandGroupBackground">#FF7C7C7C</color>
 
 
 </resources>

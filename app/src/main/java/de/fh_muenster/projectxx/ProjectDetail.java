@@ -1,27 +1,91 @@
 package de.fh_muenster.projectxx;
 
 import android.app.Activity;
+import android.app.ExpandableListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
-public class ProjectDetail extends ActionBarActivity {
+public class ProjectDetail extends Activity {
+    private ArrayList<String> Themenlist = new ArrayList<String>();
+    private ListView disc ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          Intent i = getIntent();
-
         Project project = (Project)i.getSerializableExtra("project");
         setContentView(R.layout.activity_project_detail);
         TextView textViewToChange = (TextView) findViewById(R.id.txt_describe);
         textViewToChange.setText(project.getDescription());
+
+
+        //Test Diskussion
+        Themenlist.add("Warum ein : setzen?");
+        Themenlist.add("Kann man auch C programmieren?");
+        Themenlist.add("Tutorial Sammlung!");
+
+        // Get ListView object from xml
+        disc = (ListView) findViewById(R.id.lv_disc);
+        // Define a new Adapter
+        // First parameter - Context
+        // Second parameter - Layout for the row
+        // Third parameter - ID of the TextView to which the data is written
+        // Forth - the Array of data
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, Themenlist);
+
+        // Assign adapter to ListView
+        disc.setAdapter(adapter);
+
+        // ListView Item Click Listener
+        disc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item index
+                int itemPosition     = position;
+
+                // ListView Clicked item value
+                String theme = (String) disc.getItemAtPosition(position).toString();
+                String  itemValue    = theme ;
+
+                // Show Alert
+                Toast.makeText(getApplicationContext(),
+                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();
+                //start Detail Activity
+
+
+
+            }
+
+        });
+
+
+
+
     }
 
 
@@ -46,4 +110,5 @@ public class ProjectDetail extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -10,8 +10,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txt_describe_name"
+        android:text="@string/txt_Projectdesc"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -19,8 +20,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txt_describe"
+        android:layout_below="@+id/txt_describe_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -28,19 +30,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Diskussion"
-        android:id="@+id/textView2"
-        android:layout_centerVertical="true"
+        android:text="@string/disc"
+        android:id="@+id/disc"
+        android:layout_below="@+id/txt_describe"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_disc"
+        android:layout_below="@+id/disc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/termin" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Termine/Meilensteine"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
+        android:text="@string/termin"
+        android:id="@+id/termin"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="135dp" />
+
 </RelativeLayout>
