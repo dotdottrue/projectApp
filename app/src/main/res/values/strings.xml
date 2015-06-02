@@ -7,16 +7,26 @@
     <string name="txt_Projectname">Projektname</string>
     <string name="txt_Projectdesc">Projektbeschreibung</string>
     <string name="btn_hinzufuegen">Projekt Hinzufügen</string>
+    <string name="actname_allProjects">Alle Projekte</string>
 
     <string name="act_hinzufuegen">Projekt Hinzufügen</string>
     <string name="title_activity_project_detail">ProjectDetail</string>
     <string name="termin">Termin/Meilenstein</string>
+
+
     <string name="disc">Diskussion</string>
+    <string name="newdisc">Titel</string>
+    <string name="newPost">Schreibe deine Message</string>
+    <string name="newdisc_Act">Neue Diskussion</string>
 
 
     <color name="Black">#000000</color>
     <color name="ExpandChildBackground">#FFAFABAB</color>
     <color name="ExpandGroupBackground">#FF7C7C7C</color>
+    <string name="title_activity_new_disc">new_disc</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_forum_posts">ForumPosts</string>
 
 
 </resources>

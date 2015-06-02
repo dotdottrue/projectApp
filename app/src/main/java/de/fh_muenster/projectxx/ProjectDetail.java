@@ -22,8 +22,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class ProjectDetail extends Activity {
+public class ProjectDetail extends ActionBarActivity {
     private ArrayList<String> Themenlist = new ArrayList<String>();
+    private ArrayList<Forum> forums = new ArrayList<Forum>();
     private ListView disc ;
 
 
@@ -38,11 +39,7 @@ public class ProjectDetail extends Activity {
         textViewToChange.setText(project.getDescription());
 
 
-        //Test Diskussion
-        Themenlist.add("Warum ein : setzen?");
-        Themenlist.add("Kann man auch C programmieren?");
-        Themenlist.add("Tutorial Sammlung!");
-
+       
         // Get ListView object from xml
         disc = (ListView) findViewById(R.id.lv_disc);
         // Define a new Adapter
@@ -65,18 +62,19 @@ public class ProjectDetail extends Activity {
                                     int position, long id) {
 
                 // ListView Clicked item index
-                int itemPosition     = position;
+                int itemPosition = position;
 
                 // ListView Clicked item value
                 String theme = (String) disc.getItemAtPosition(position).toString();
-                String  itemValue    = theme ;
+                String itemValue = theme;
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
                 //start Detail Activity
-
+                Forum forum = forums.get(itemPosition);
+                openForum(forum);
 
 
             }
@@ -101,14 +99,50 @@ public class ProjectDetail extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_newDesc:
+                openNewDesc();
+                return true;
+            case R.id.action_settings:
+                //openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+
+    }
+
+
+        private void openNewDesc(){
+        Intent intent = new Intent(this, new_disc.class);
+        startActivityForResult(intent, 1);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                String fTitle=data.getStringExtra("fTitle");
+                String fDesc=data.getStringExtra("fDesc");
+                Forum forum = new Forum(fTitle, fDesc);
+                Themenlist.add(forum.getTitle());
+                forums.add(forum);
+                disc.invalidateViews();
+
+
+
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
+
+    private void openForum(Forum forum) {
+        Intent intent = new Intent(this, ForumPosts.class);
+        startActivity(intent);
     }
 
 }

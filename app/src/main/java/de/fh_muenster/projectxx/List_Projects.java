@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class List_Projects extends ActionBarActivity {
 
     private ArrayList<Project> projectList = new ArrayList<Project>();
+    private ArrayList<String> projectListNames = new ArrayList<String>();
 
     private ListView listView ;
 
@@ -39,8 +40,8 @@ public class List_Projects extends ActionBarActivity {
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
 
-        ArrayAdapter<Project> adapter = new ArrayAdapter<Project>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, projectList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, projectListNames);
 
         // Assign adapter to ListView
         listView.setAdapter(adapter);
@@ -56,14 +57,14 @@ public class List_Projects extends ActionBarActivity {
                 int itemPosition     = position;
 
                 // ListView Clicked item value
-                Project project = (Project) listView.getItemAtPosition(position);
-                String  itemValue    = project.getProjectname() ;
+                String  itemValue    = (String) listView.getItemAtPosition(position).toString();
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
                 //start Detail Activity
+                Project project = projectList.get(itemPosition);
                 openProject(project);
 
 
@@ -120,6 +121,7 @@ public class List_Projects extends ActionBarActivity {
                 String pDesc=data.getStringExtra("pDesc");
                 Project project = new Project(pName, pDesc);
                 projectList.add(project);
+                projectListNames.add(project.getProjectname());
                 listView.invalidateViews();
 
 
