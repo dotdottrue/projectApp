@@ -39,7 +39,7 @@ public class ProjectDetail extends ActionBarActivity {
         textViewToChange.setText(project.getDescription());
 
 
-       
+
         // Get ListView object from xml
         disc = (ListView) findViewById(R.id.lv_disc);
         // Define a new Adapter
@@ -142,6 +142,7 @@ public class ProjectDetail extends ActionBarActivity {
 
     private void openForum(Forum forum) {
         Intent intent = new Intent(this, ForumPosts.class);
+        intent.putExtra("forum",forum);
         startActivity(intent);
     }
 

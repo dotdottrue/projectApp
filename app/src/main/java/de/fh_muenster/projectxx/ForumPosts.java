@@ -1,17 +1,32 @@
 package de.fh_muenster.projectxx;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class ForumPosts extends ActionBarActivity {
+
+    private ArrayList<String> sPosts = new ArrayList<String>();
+    private ArrayList<Post> posts = new ArrayList<Post>();
+    private ListView lvPost ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_posts);
+        Intent i = getIntent();
+        Forum forum = (Forum)i.getSerializableExtra("forum");
+
+        //Frage als überschrift drucken.
+        TextView textViewToChange = (TextView) findViewById(R.id.txt_describe);
+        textViewToChange.setText(forum.getTitle());
     }
 
 
