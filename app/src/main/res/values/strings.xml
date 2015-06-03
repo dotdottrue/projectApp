@@ -27,6 +27,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_forum_posts">ForumPosts</string>
+    <string name="title_activity_calender">Calender</string>
 
 
 </resources>

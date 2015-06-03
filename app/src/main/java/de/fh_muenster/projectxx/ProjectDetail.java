@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,14 +33,23 @@ public class ProjectDetail extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         Intent i = getIntent();
-        Project project = (Project)i.getSerializableExtra("project");
+        Intent i = getIntent();
+        Project project = (Project) i.getSerializableExtra("project");
         setContentView(R.layout.activity_project_detail);
         TextView textViewToChange = (TextView) findViewById(R.id.txt_describe);
         textViewToChange.setText(project.getDescription());
 
 
-       
+        Button btnCalender = (Button) findViewById(R.id.btnCalender);
+        btnCalender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), Calender.class);
+                    startActivityForResult(intent, 0);
+                }
+            });
+
+
         // Get ListView object from xml
         disc = (ListView) findViewById(R.id.lv_disc);
         // Define a new Adapter
