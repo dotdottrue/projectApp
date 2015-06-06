@@ -23,8 +23,8 @@ public class Forum implements Serializable {
         return title;
     }
 
-    public String getQuestion() {
-        return question;
+    public ArrayList<Post> getPosts() {
+        return posts;
     }
 
     public void savePost(String post) {

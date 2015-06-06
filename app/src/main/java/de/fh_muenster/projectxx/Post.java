@@ -1,11 +1,12 @@
 package de.fh_muenster.projectxx;
 
+import java.io.Serializable;
 import java.security.Timestamp;
 
 /**
  * Created by user on 02.06.15.
  */
-public class Post {
+public class Post implements Serializable {
     private String post;
     private Timestamp time;
 
