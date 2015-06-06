@@ -1,21 +1,14 @@
 package de.fh_muenster.projectxx;
 
-import android.app.Activity;
-import android.app.ExpandableListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,8 +37,8 @@ public class ProjectDetail extends ActionBarActivity {
         btnCalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), Calender.class);
-                    startActivityForResult(intent, 0);
+                    Intent intent = new Intent(view.getContext(), Calendar.class);
+                    startActivity(intent);
                 }
             });
 

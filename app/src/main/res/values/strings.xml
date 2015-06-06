@@ -28,6 +28,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_forum_posts">ForumPosts</string>
     <string name="title_activity_calender">Calender</string>
+    <string name="title_activity_list_calendars">list_calendars</string>
+    <string name="title_activity_calendar_list">Calendar_list</string>
 
 
 </resources>

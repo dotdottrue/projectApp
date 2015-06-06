@@ -10,14 +10,14 @@ import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
 
 
-public class Calender extends ActionBarActivity {
+public class Calendar extends ActionBarActivity {
 
     CalendarView calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calender);
+        setContentView(R.layout.activity_calendar);
         initializeCalendar();
     }
 
@@ -73,6 +73,7 @@ public class Calender extends ActionBarActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                new CalendarObj(day + "/" + month + "/" + year);
             }
         });
     }
