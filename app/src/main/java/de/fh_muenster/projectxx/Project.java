@@ -7,6 +7,11 @@ import java.io.Serializable;
 public class Project implements Serializable {
     private String projectname;
     private String description;
+    //Projectstatus enum{IDEAL,DELAYED,OUTOFTIME,FINISHED}
+    //Project members
+    //calendar (Meilensteine,Termine)
+    //long projectid
+    //
     public Project(String projectname, String description)
     {
         this.projectname = projectname;
