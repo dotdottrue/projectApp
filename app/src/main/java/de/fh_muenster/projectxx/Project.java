@@ -7,10 +7,11 @@ import java.io.Serializable;
 public class Project implements Serializable {
     private String projectname;
     private String description;
-    //Projectstatus enum{IDEAL,DELAYED,OUTOFTIME,FINISHED}
+    private long projectid;
+    //private String Projectstatus enum{"IDEAL","DELAYED","OUTOFTIME","FINISHED"};
     //Project members
     //calendar (Meilensteine,Termine)
-    //long projectid
+
     //
     public Project(String projectname, String description)
     {
@@ -25,4 +26,21 @@ public class Project implements Serializable {
     public String getProjectname() {
         return this.projectname;
     }
+
+    public long getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(long projectid) {
+        this.projectid = projectid;
+    }
+
+    public void setProjectname(String projectname) {
+        this.projectname = projectname;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
