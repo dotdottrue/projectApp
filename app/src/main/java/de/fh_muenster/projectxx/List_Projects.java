@@ -17,7 +17,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import de.fh_muenster.projectxx.Device.Contact_List;
+=======
+import de.fh_muenster.projectxx.soap.ContactService;
+>>>>>>> soap
 
 
 public class List_Projects extends ActionBarActivity {
@@ -31,6 +35,7 @@ public class List_Projects extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_list__projects);
 
         // Get ListView object from xml
@@ -172,6 +177,8 @@ public class List_Projects extends ActionBarActivity {
         return projectList.get(id);
     }
 
-   
+    private void firstSteps(){
+
+    }
 
 }
