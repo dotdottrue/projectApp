@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import de.fh_muenster.projectxx.Device.Contact_List;
+
 
 public class List_Projects extends ActionBarActivity {
 
@@ -95,6 +97,10 @@ public class List_Projects extends ActionBarActivity {
                 return true;
             case R.id.action_settings:
                 //openSettings();
+                return true;
+            case R.id.test_Contact:
+                Intent intent = new Intent(this, Contact_List.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

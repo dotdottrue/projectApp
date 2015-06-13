@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.fh_muenster.projectxx" >
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".List_Projects"
             android:label="@string/actname_allProjects"
@@ -32,6 +35,10 @@
         <activity
             android:name=".ForumPosts"
             android:label="@string/title_activity_forum_posts" >
+        </activity>
+        <activity
+            android:name=".Device.Contact_List"
+            android:label="@string/title_activity_contact__list" >
         </activity>
     </application>
 

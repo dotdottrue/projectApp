@@ -25,8 +25,10 @@
     <color name="ExpandGroupBackground">#FF7C7C7C</color>
     <string name="title_activity_new_disc">new_disc</string>
 
-    <string name="hello_world">Hello world!</string>
+
     <string name="title_activity_forum_posts">ForumPosts</string>
+
+    <string name="title_activity_contact__list">Contacts</string>
 
 
 </resources>
