@@ -4,16 +4,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="de.fh_muenster.projectxx.Add_Project">
+    tools:context="de.fh_muenster.projectxx.add_appointment">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Projekt Hinzufügen"
+        android:text="Termin hinzufügen"
         android:textColor="@color/darkgreen"
-        android:id="@+id/addProjectTxt"
+        android:id="@+id/addAppointmentTxt"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -21,13 +21,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/PnameTxt"
-        android:layout_below="@+id/addProjectTxt"
+        android:id="@+id/AppointmentNameTxt"
+        android:layout_below="@+id/addAppointmentTxt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:autoText="false"
         android:editable="true"
-        android:hint="@string/txt_Projectname"
+        android:hint="@string/txt_AppointmentName"
         android:textColorHint="@color/green"/>
 
     <EditText
@@ -35,12 +35,12 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/PdescribeTxt"
-        android:layout_below="@+id/PnameTxt"
+        android:id="@+id/AppointmentDescribeTxt"
+        android:layout_below="@+id/AppointmentNameTxt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="47dp"
-        android:hint="@string/txt_Projectdesc"
+        android:hint="@string/txt_AppointmentDesc"
         android:textColorHint="@color/green"/>
 
     <Button
@@ -48,12 +48,11 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_hinzufuegen"
         android:textColor="@color/green"
-        android:id="@+id/btnAdd"
+        android:id="@+id/add_Appointment"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-
-        android:onClick="add_Project"
-        />
+        android:enabled="false"
+        android:onClick="add_Appointment"/>
 
 </RelativeLayout>

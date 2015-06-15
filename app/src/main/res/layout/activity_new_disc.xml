@@ -7,16 +7,28 @@
     tools:context="de.fh_muenster.projectxx.new_disc">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Kommentar Hinzufügen"
+        android:textColor="@color/darkgreen"
+        android:id="@+id/addDiscTxt"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/edtQuest"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/addDiscTxt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/newdisc"/>
+        android:hint="@string/newdisc"
+        android:textColorHint="@color/green"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -28,12 +40,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="128dp"
-        android:hint="@string/newPost"/>
+        android:hint="@string/newPost"
+        android:textColorHint="@color/green"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_hinzufuegen"
+        android:textColor="@color/green"
         android:id="@+id/btnAddDisc"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

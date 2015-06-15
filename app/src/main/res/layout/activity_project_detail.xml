@@ -13,6 +13,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txt_describe_name"
         android:text="@string/txt_Projectdesc"
+        android:textColor="@color/darkgreen"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/disc"
+        android:textColor="@color/darkgreen"
         android:id="@+id/disc"
         android:layout_below="@+id/txt_describe"
         android:layout_alignParentLeft="true"
@@ -51,6 +53,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/termin"
+        android:textColor="@color/darkgreen"
         android:id="@+id/termin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

@@ -4,28 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-
-import java.util.ArrayList;
 
 
-public class Calendar_list extends ActionBarActivity {
-    private ArrayList<Project> calendarList = new ArrayList<Project>();
-    private ArrayList<String> calendarListNames = new ArrayList<String>();
-
-    private ListView listView ;
+public class List_Appointments extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar_list);
+        setContentView(R.layout.activity_list__appointments);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_calendar_list, menu);
+        getMenuInflater().inflate(R.menu.menu_list__appointments, menu);
         return true;
     }
 
