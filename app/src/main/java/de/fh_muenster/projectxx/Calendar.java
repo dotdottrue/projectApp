@@ -1,10 +1,13 @@
 package de.fh_muenster.projectxx;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
@@ -19,6 +22,15 @@ public class Calendar extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         initializeCalendar();
+
+        Button btnNewApp = (Button) findViewById(R.id.btnCalender);
+        btnNewApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), add_appointment.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -73,9 +85,20 @@ public class Calendar extends ActionBarActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-                new CalendarObj(day + "/" + month + "/" + year);
+
+                Appointment ap = new Appointment(day, month, year);
+                openAppointment(ap);
+
             }
         });
+    }
+
+
+    public void openAppointment(Appointment ap){
+        Intent intent = new Intent(this, add_appointment.class);
+        intent.putExtra("appointment", ap);
+        startActivity(intent);
+
     }
 
 

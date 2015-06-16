@@ -58,10 +58,13 @@
             android:label="@string/title_activity_calender" >
         </activity>
         <activity
-            android:name=".Calendar_list"
-            android:label="@string/title_activity_list_calendars" >
+            android:name=".List_Appointments"
+            android:label="@string/title_activity_list__appointments" >
         </activity>
-
+        <activity
+            android:name=".add_appointment"
+            android:label="@string/title_activity_add_appointment" >
+        </activity>
     </application>
 
 </manifest>

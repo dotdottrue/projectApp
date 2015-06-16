@@ -8,6 +8,8 @@
     <string name="txt_Projectdesc">Projektbeschreibung</string>
     <string name="btn_hinzufuegen">Projekt Hinzufügen</string>
     <string name="actname_allProjects">Alle Projekte</string>
+    <string name="txt_AppointmentDesc">Terminbeschreibung</string>
+    <string name="txt_AppointmentName">Terminname</string>
 
     <string name="act_hinzufuegen">Projekt Hinzufügen</string>
     <string name="title_activity_project_detail">ProjectDetail</string>
@@ -30,6 +32,8 @@
     <string name="title_activity_calender">Calender</string>
     <string name="title_activity_list_calendars">list_calendars</string>
     <string name="title_activity_calendar_list">Calendar_list</string>
+    <string name="title_activity_list__appointments">List_Appointments</string>
+    <string name="title_activity_add_appointment">add_appointment</string>
 
     <string name="title_activity_contact__list">Contacts</string>
 
