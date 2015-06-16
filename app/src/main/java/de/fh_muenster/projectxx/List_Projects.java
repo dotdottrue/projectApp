@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,20 +16,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.SoapObject;
 
-<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.List;
+
+
 import de.fh_muenster.projectxx.Device.Contact_List;
-=======
+
+import de.fh_muenster.projectxx.Device.DeviceService;
+import de.fh_muenster.projectxx.Tasks.ListProjectTask;
+import de.fh_muenster.projectxx.Tasks.RegisterTask;
 import de.fh_muenster.projectxx.soap.ContactService;
->>>>>>> soap
+import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.project.ProjectTO;
 
 
 public class List_Projects extends ActionBarActivity {
 
     private ArrayList<Project> projectList = new ArrayList<Project>();
     private ArrayList<String> projectListNames = new ArrayList<String>();
-
+    private SoapObject test;
     private ListView listView ;
 
 
@@ -38,6 +47,18 @@ public class List_Projects extends ActionBarActivity {
 
         setContentView(R.layout.activity_list__projects);
 
+        try{
+            firstSteps();
+
+            if(test == null) {
+                //projectListNames.add("result ist null");
+            }
+
+
+        }
+        catch (Exception e) {
+            projectListNames.add(e.toString());
+        }
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.listView);
 
@@ -118,12 +139,12 @@ public class List_Projects extends ActionBarActivity {
 
 
         Intent intent = new Intent(this, Add_Project.class);
-        startActivityForResult(intent,1);
+        startActivity(intent);
 
 
 
     }
-
+/*
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
@@ -142,6 +163,7 @@ public class List_Projects extends ActionBarActivity {
             }
         }
     }
+    **/
 
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -177,8 +199,57 @@ public class List_Projects extends ActionBarActivity {
         return projectList.get(id);
     }
 
-    private void firstSteps(){
+    private void firstSteps() throws SoapFault {
+        String myUserId = DeviceService.getMyPhonenumber(getApplicationContext());
+        RegisterTask task = new RegisterTask(getApplicationContext(),myUserId,this.getApplication());
+        String result = "";
+        task.execute(myUserId,result);
 
+        try{
+            //Prjektliste abfragen
+            ListProjectTask task2 = new ListProjectTask(getApplicationContext(),getApplication(),myUserId,this);
+            List<ProjectTO> projects = (List<ProjectTO>)task2.execute(myUserId);
+            createProjectList(projects);
+        }
+        catch (NullPointerException e){
+            System.out.println("Keine Projects da");
+        }
+
+        //this.test = result;
+        //projectListNames.add(result.getPropertyAsString(0));
+
+    }
+
+    private void createProjectList(List<ProjectTO> projects){
+        for(ProjectTO project : projects) {
+            projectListNames.add(project.getProjectName());
+
+
+        }
+        listView.invalidateViews();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.contextmenu_list_projects, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.action_updateProject:
+
+                return true;
+            case R.id.action_deleteProject:
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
 }

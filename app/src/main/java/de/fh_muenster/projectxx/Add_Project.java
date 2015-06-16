@@ -12,11 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import de.fh_muenster.projectxx.Device.DeviceService;
+import de.fh_muenster.projectxx.Tasks.NewProjectTask;
+import de.project.dto.project.ProjectTO;
 
 
 public class Add_Project extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "cde.fh_muenster.projectxx.MESSAGE";
     EditText nameTxt, describeTxt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +52,10 @@ public class Add_Project extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Projekt wurde erstellt", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.putExtra("pName",nameTxt.getText().toString());
-                intent.putExtra("pDesc",describeTxt.getText().toString());
-                setResult(RESULT_OK, intent);
+                Project project = new Project(nameTxt.getText().toString(), describeTxt.getText().toString());
+                createProject(project);
                 finish();
+
 
             }
         });
@@ -80,6 +83,12 @@ public class Add_Project extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createProject(Project p){
+        NewProjectTask task = new NewProjectTask(getApplicationContext(),getApplication(),p, DeviceService.getMyPhonenumber(getApplicationContext()));
+        task.execute(p);
+
     }
 
 

@@ -20,21 +20,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import de.fh_muenster.projectxx.Device.DeviceService;
+import de.fh_muenster.projectxx.Interfaces.AsyncResponse;
+import de.fh_muenster.projectxx.Tasks.ListDiscussionsTask;
+import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.project.ProjectTO;
 
 
-public class ProjectDetail extends ActionBarActivity {
+public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
     private ArrayList<String> Themenlist = new ArrayList<String>();
-    private ArrayList<Forum> forums = new ArrayList<Forum>();
+    private ArrayList<DiscussionTO> forums = new ArrayList<DiscussionTO>();
     private ListView disc ;
+    private ArrayAdapter<String> adapter;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
          Intent i = getIntent();
-        Project project = (Project)i.getSerializableExtra("project");
+        ProjectTO project = (ProjectTO)i.getSerializableExtra("project");
+
+
         setContentView(R.layout.activity_project_detail);
+        firstSteps(project);
+        Themenlist.add("Das ist ein Test");
         TextView textViewToChange = (TextView) findViewById(R.id.txt_describe);
         textViewToChange.setText(project.getDescription());
 
@@ -42,13 +56,14 @@ public class ProjectDetail extends ActionBarActivity {
 
         // Get ListView object from xml
         disc = (ListView) findViewById(R.id.lv_disc);
+
         // Define a new Adapter
         // First parameter - Context
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        /*
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, Themenlist);
 
         // Assign adapter to ListView
@@ -73,13 +88,16 @@ public class ProjectDetail extends ActionBarActivity {
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
                 //start Detail Activity
-                Forum forum = forums.get(itemPosition);
+                DiscussionTO forum = forums.get(itemPosition);
                 openForum(forum);
 
 
             }
 
         });
+        **/
+
+
 
 
 
@@ -119,7 +137,7 @@ public class ProjectDetail extends ActionBarActivity {
         Intent intent = new Intent(this, new_disc.class);
         startActivityForResult(intent, 1);
     }
-
+    /*
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
@@ -139,11 +157,51 @@ public class ProjectDetail extends ActionBarActivity {
             }
         }
     }
+    **/
 
-    private void openForum(Forum forum) {
+    private void openForum(DiscussionTO forum) {
         Intent intent = new Intent(this, ForumPosts.class);
         intent.putExtra("forum",forum);
         startActivity(intent);
+    }
+
+    private void firstSteps(ProjectTO project){
+        String myUserId = DeviceService.getMyPhonenumber(getApplicationContext());
+        ListDiscussionsTask task = new ListDiscussionsTask(getApplicationContext(),getApplication(),project,myUserId,this);
+        task.delegate = this;
+        task.execute(project);
+
+
+
+
+    }
+
+    private void createDiscussenList(List<DiscussionTO> discs){
+        for(DiscussionTO disc : discs) {
+            Themenlist.add(disc.getTopic());
+            System.out.println("createDiscussionList: " + disc.getTopic());
+
+
+        }
+
+        //listView.invalidateViews();
+    }
+
+    @Override
+    public void processFinish(List<DiscussionTO> output) {
+        //forums = (ArrayList<DiscussionTO>)output;
+        //createDiscussenList(output);
+        //disc.invalidateViews();
+        ArrayList<String> test = new ArrayList<String>();
+        for(DiscussionTO d : output){
+            System.out.println("Topic1337: " +d.getTopic());
+            test.add(d.getTopic());
+        }
+        for(String s : test) {
+            System.out.println("Themenlist: " + s);
+        }
+        this.Themenlist = test;
+
     }
 
 }
