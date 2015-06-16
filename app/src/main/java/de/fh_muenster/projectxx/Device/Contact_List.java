@@ -16,15 +16,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Contact_List extends ActionBarActivity {
 
     public TextView outputText;
+    private ArrayList<String> contactPhonenumbers;
+    private HashMap<String,String> contacts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact__list);
         outputText = (TextView)findViewById(R.id.testText);
         outputText.setText(DeviceService.getMyPhonenumber(getApplicationContext()));
+
+        this.contactPhonenumbers = DeviceService.getMyContactsPhonenumbers(getContentResolver());
+        this.contacts = DeviceService.getMyContacts(getContentResolver());
 
     }
 

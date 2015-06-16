@@ -3,7 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.fh_muenster.projectxx.ProjectDetail">
     <item android:id="@+id/action_newDesc" android:title="@string/newdisc_Act"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_forum_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/addUser"
+        android:title="@string/pDetail_menue_addUser"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        android:orderInCategory="100" app:showAsAction="ifRoom" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
