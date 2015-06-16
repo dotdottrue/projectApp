@@ -5,6 +5,19 @@
     </uses-permission>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="21" />
+
+
 
     <application
         android:allowBackup="true"
@@ -41,7 +54,14 @@
         <activity
             android:name=".Device.Contact_List"
             android:label="@string/title_activity_contact__list" >
+            android:name=".Calendar"
+            android:label="@string/title_activity_calender" >
         </activity>
+        <activity
+            android:name=".Calendar_list"
+            android:label="@string/title_activity_list_calendars" >
+        </activity>
+
     </application>
 
 </manifest>
