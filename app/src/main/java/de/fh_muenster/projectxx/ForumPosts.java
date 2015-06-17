@@ -17,6 +17,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import de.fh_muenster.projectxx.Device.DeviceService;
+import de.fh_muenster.projectxx.Tasks.ListNotesTask;
+import de.fh_muenster.projectxx.Tasks.NewNoteTask;
+import de.project.dto.NoteTO;
+import de.project.dto.discussion.DiscussionTO;
+
 
 public class ForumPosts extends ActionBarActivity {
 
@@ -24,20 +30,19 @@ public class ForumPosts extends ActionBarActivity {
     private ArrayList<Post> posts = new ArrayList<Post>();
     private ListView lvPost ;
     private EditText postMsg;
-    private Forum forum;
+    private DiscussionTO forum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent ii = getIntent();
-        forum = (Forum)ii.getSerializableExtra("forum");
-        posts = forum.getPosts();
-        setContentView(R.layout.activity_forum_posts);
+        forum = (DiscussionTO)ii.getSerializableExtra("forum");
 
+        setContentView(R.layout.activity_forum_posts);
 
         //Frage als überschrift drucken.
         TextView textViewToChange = (TextView) findViewById(R.id.Forumtitle);
-        textViewToChange.setText(forum.getTitle());
+        textViewToChange.setText(forum.getTopic());
 
         //Button hinzufügen und Logik hinterlegen
         postMsg = (EditText) findViewById(R.id.edtPostForum);
@@ -64,12 +69,13 @@ public class ForumPosts extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Post wurde gespeichert", Toast.LENGTH_SHORT).show();
-                addPost(postMsg.getText().toString());
+                createNote(postMsg.getText().toString());
                 postMsg.setText("");
+                invalidateNotes();
 
             }
         });
-
+        /*
         // Get ListView object from xml
         lvPost = (ListView) findViewById(R.id.lvPosts);
 
@@ -85,6 +91,7 @@ public class ForumPosts extends ActionBarActivity {
         // Assign adapter to ListView
         lvPost.setAdapter(adapter);
         validatPost();
+        */
     }
 
 
@@ -110,20 +117,22 @@ public class ForumPosts extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addPost(String post){
-        forum.savePost(post);
-        validatPost();
+    private void invalidateNotes(){
+        String userid = DeviceService.getMyPhonenumber(getApplicationContext());
+        //NoteTask erzeugen und starten
+        ListNotesTask task = new ListNotesTask(getApplicationContext(),getApplication(),this.forum,userid,this);
+        task.execute(this.forum);
+
 
     }
+    private void createNote(String post){
+        String userid = DeviceService.getMyPhonenumber(getApplicationContext());
+        NoteTO note = new NoteTO();
+        note.setNote(post);
+        //NoteTask erzeugen und starten
+        NewNoteTask task = new NewNoteTask(getApplicationContext(),getApplication(),this.forum,userid);
+        task.execute(note);
 
-    private void validatPost(){
-        this.posts = forum.getPosts();
-
-        //String Arraylist neu aufbauen
-        sPosts.clear();
-        for(Post tmp : this.posts) {
-            sPosts.add(tmp.getPost());
-        }
 
     }
 }

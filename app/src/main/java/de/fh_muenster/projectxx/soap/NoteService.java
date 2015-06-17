@@ -7,25 +7,47 @@ import java.util.ArrayList;
 
 import de.fh_muenster.projectxx.Forum;
 import de.fh_muenster.projectxx.Post;
+import de.project.dto.NoteTO;
+import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.project.ProjectTO;
 
 /**
  * Created by user on 09.06.15.
  */
 public class NoteService {
 
-    public static ArrayList<Post> getPosts(Forum forum) throws SoapFault {
+    public static ArrayList<NoteTO> getPosts(DiscussionTO forum, String userid) throws SoapFault {
         String method = "getPosts";
-        long forumid = forum.getForumid();
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,forumid);
-        ArrayList<Post> posts = (ArrayList<Post>) result.getPrimitiveProperty("Notelist");
-        return posts;
+        long forumid = forum.getId();
+        ArrayList<NoteTO> posts = new ArrayList<NoteTO>();
+
+        try{
+
+            SoapObject result = (SoapObject) SoapService.executeSoapAction(method, SoapService.URL, forumid, userid);
+
+            for (int i = 0; i < result.getPropertyCount(); i++) {
+                SoapObject object = (SoapObject) result.getProperty(i);
+                NoteTO note = new NoteTO();
+                note.setNote(object.getProperty("note").toString());
+                String id = object.getProperty("id").toString();
+                Long lid = Long.valueOf(id).longValue();
+                long test = lid;
+                note.setId(test);
+                posts.add(note);
+            }
+
+
+            return posts;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
-    public static ArrayList<Post> addPost(Forum forum, Post post) throws SoapFault {
-        long forumid = forum.getForumid();
+    public static void addPost(DiscussionTO forum, NoteTO post, String userid) throws SoapFault {
+        long forumid = forum.getId();
         String method = "addNote";
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,forumid,post);
-        ArrayList<Post> posts = (ArrayList<Post>) result.getPrimitiveProperty("Notelist");
-        return posts;
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,forumid,post.getNote(),userid);
+
     }
 }
