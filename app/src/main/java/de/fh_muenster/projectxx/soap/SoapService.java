@@ -10,6 +10,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,12 +49,27 @@ public class SoapService {
         */
         SoapObject request = new SoapObject(NAMESPACE, methodName);
         /* The array of arguments is copied into properties of the SOAP request using the addProperty method. */
+        int argCounter = 0;
         for (int i=0; i<args.length; i++) {
             //PropertyInfo propInfo = new PropertyInfo();
             //propInfo.name = "arg" + i;
             //propInfo.type = PropertyInfo.STRING_CLASS;
            //request.addProperty(propInfo);
-            request.addProperty("arg"+i,args[i].toString());
+
+            if(args[i] instanceof ArrayList) {
+                ArrayList<String> contacts = (ArrayList<String>) args[i];
+                for(String s : contacts){
+                    request.addProperty("arg"+argCounter,s);
+                }
+
+            }
+            else
+            {
+                request.addProperty("arg"+argCounter,args[i].toString());
+            }
+            argCounter++;
+
+
 
         }
         /* Next create a SOAP envelop. Use the SoapSerializationEnvelope class, which extends the SoapEnvelop class, with support for SOAP

@@ -17,13 +17,13 @@ import de.project.dto.project.ProjectTO;
 public class NoteService {
 
     public static ArrayList<NoteTO> getPosts(DiscussionTO forum, String userid) throws SoapFault {
-        String method = "getPosts";
+        String method = "getNotesByDiscussion";
         long forumid = forum.getId();
         ArrayList<NoteTO> posts = new ArrayList<NoteTO>();
 
         try{
 
-            SoapObject result = (SoapObject) SoapService.executeSoapAction(method, SoapService.URL, forumid, userid);
+            SoapObject result = (SoapObject) SoapService.executeSoapAction(method, SoapService.URL2, forumid);
 
             for (int i = 0; i < result.getPropertyCount(); i++) {
                 SoapObject object = (SoapObject) result.getProperty(i);
@@ -46,8 +46,8 @@ public class NoteService {
 
     public static void addPost(DiscussionTO forum, NoteTO post, String userid) throws SoapFault {
         long forumid = forum.getId();
-        String method = "addNote";
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,forumid,post.getNote(),userid);
+        String method = "addNoteToDiscussion";
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,forumid,post.getNote(),userid);
 
     }
 }

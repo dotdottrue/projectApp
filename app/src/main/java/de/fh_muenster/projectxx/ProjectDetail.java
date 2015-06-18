@@ -28,6 +28,7 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
     private ArrayList<DiscussionTO> forums = new ArrayList<DiscussionTO>();
     private ListView disc ;
     private ArrayAdapter<String> adapter;
+    private ProjectTO project;
 
 
 
@@ -37,7 +38,7 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
         super.onCreate(savedInstanceState);
 
         Intent i = getIntent();
-        ProjectTO project = (ProjectTO)i.getSerializableExtra("project");
+        this.project = (ProjectTO)i.getSerializableExtra("project");
 
         setContentView(R.layout.activity_project_detail);
         firstSteps(project);
@@ -134,8 +135,9 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
 
 
         private void openNewDesc(){
-        Intent intent = new Intent(this, new_disc.class);
-        startActivityForResult(intent, 1);
+            Intent intent = new Intent(this, new_disc.class);
+            intent.putExtra("project", this.project);
+            startActivity(intent);
     }
     /*
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

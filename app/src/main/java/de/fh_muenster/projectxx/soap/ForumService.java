@@ -46,8 +46,8 @@ public class ForumService {
     }
 
     public static void addForum(DiscussionTO forum, String userid, ProjectTO project) throws SoapFault {
-        String method = "addForum";
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,userid,project.getId(),forum.getTopic());
+        String method = "addDiscussionToProject";
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,project.getId(),forum.getTopic());
 
     }
 

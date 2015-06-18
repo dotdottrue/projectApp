@@ -92,4 +92,9 @@ public class ProjectService {
         long id = project.getProjectid();
         SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,id);
     }
+
+    public static void addUserToProject(String phonenumber, long projectid) throws SoapFault {
+        String method = "addUserToProject";
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,phonenumber,projectid);
+    }
 }

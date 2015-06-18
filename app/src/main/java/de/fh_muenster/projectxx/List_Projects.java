@@ -124,10 +124,7 @@ public class List_Projects extends ActionBarActivity {
             case R.id.action_settings:
                 //openSettings();
                 return true;
-            case R.id.test_Contact:
-                Intent intent = new Intent(this, Contact_List.class);
-                startActivity(intent);
-                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 

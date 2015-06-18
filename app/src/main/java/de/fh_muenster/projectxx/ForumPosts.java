@@ -36,8 +36,8 @@ public class ForumPosts extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent ii = getIntent();
-        forum = (DiscussionTO)ii.getSerializableExtra("forum");
-
+        this.forum = (DiscussionTO)ii.getSerializableExtra("forum");
+        listNotes();
         setContentView(R.layout.activity_forum_posts);
 
         //Frage als überschrift drucken.
@@ -132,7 +132,15 @@ public class ForumPosts extends ActionBarActivity {
         //NoteTask erzeugen und starten
         NewNoteTask task = new NewNoteTask(getApplicationContext(),getApplication(),this.forum,userid);
         task.execute(note);
+        listNotes();
 
+
+    }
+
+    private void listNotes(){
+        String myUserId = DeviceService.getMyPhonenumber(getApplicationContext());
+        ListNotesTask task = new ListNotesTask(getApplicationContext(),getApplication(),this.forum,myUserId,this);
+        task.execute(this.forum);
 
     }
 }

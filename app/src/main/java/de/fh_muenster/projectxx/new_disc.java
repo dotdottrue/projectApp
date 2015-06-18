@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import de.fh_muenster.projectxx.Device.DeviceService;
+import de.fh_muenster.projectxx.Tasks.NewDiscussionTask;
+import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.project.ProjectTO;
+
 
 public class new_disc extends ActionBarActivity {
     EditText titleTxt, describeTxt;
@@ -19,6 +24,8 @@ public class new_disc extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_disc);
+        Intent i = getIntent();
+        final ProjectTO project = (ProjectTO)i.getSerializableExtra("project");
 
         titleTxt = (EditText) findViewById(R.id.edtQuest);
         describeTxt = (EditText) findViewById(R.id.edtPost);
@@ -45,10 +52,7 @@ public class new_disc extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Diskussion wurde erstellt", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.putExtra("fTitle",titleTxt.getText().toString());
-                intent.putExtra("fDesc",describeTxt.getText().toString());
-                setResult(RESULT_OK, intent);
+                createDescussion(project);
                 finish();
 
             }
@@ -77,4 +81,13 @@ public class new_disc extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void createDescussion(ProjectTO project){
+        String myUserId = DeviceService.getMyPhonenumber(getApplicationContext());
+        NewDiscussionTask task = new NewDiscussionTask(getApplicationContext(),getApplication(),project,myUserId);
+        DiscussionTO disc = new DiscussionTO();
+        disc.setTopic(titleTxt.getText().toString());
+        task.execute(disc);
+    }
+
 }
