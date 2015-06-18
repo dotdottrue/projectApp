@@ -104,7 +104,7 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
                     selectedProject = result.get(itemPosition);
                     ProjectTO project = result.get(itemPosition);
                     openProject(project);
-                   
+
                 }
             });
 
