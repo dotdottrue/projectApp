@@ -28,6 +28,7 @@ import de.fh_muenster.projectxx.Device.Contact_List;
 import de.fh_muenster.projectxx.Device.DeviceService;
 import de.fh_muenster.projectxx.Tasks.ListProjectTask;
 import de.fh_muenster.projectxx.Tasks.RegisterTask;
+import de.fh_muenster.projectxx.Tasks.RemoveMemberTask;
 import de.fh_muenster.projectxx.soap.ContactService;
 import de.project.dto.discussion.DiscussionTO;
 import de.project.dto.project.ProjectTO;
@@ -39,6 +40,9 @@ public class List_Projects extends ActionBarActivity {
     private ArrayList<String> projectListNames = new ArrayList<String>();
     private SoapObject test;
     private ListView listView ;
+    private String myUserId;
+    private ProjectTO selectedProject;
+    private ListProjectTask task2;
 
 
     @Override
@@ -57,8 +61,9 @@ public class List_Projects extends ActionBarActivity {
 
         }
         catch (Exception e) {
-            projectListNames.add(e.toString());
+
         }
+        /*
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.listView);
 
@@ -99,6 +104,7 @@ public class List_Projects extends ActionBarActivity {
             }
 
         });
+        */
     }
 
     @Override
@@ -197,14 +203,14 @@ public class List_Projects extends ActionBarActivity {
     }
 
     private void firstSteps() throws SoapFault {
-        String myUserId = DeviceService.getMyPhonenumber(getApplicationContext());
+        this.myUserId = DeviceService.getMyPhonenumber(getApplicationContext());
         RegisterTask task = new RegisterTask(getApplicationContext(),myUserId,this.getApplication());
         String result = "";
         task.execute(myUserId,result);
 
         try{
             //Prjektliste abfragen
-            ListProjectTask task2 = new ListProjectTask(getApplicationContext(),getApplication(),myUserId,this);
+            this.task2 = new ListProjectTask(getApplicationContext(),getApplication(),myUserId,this);
             List<ProjectTO> projects = (List<ProjectTO>)task2.execute(myUserId);
             createProjectList(projects);
         }
@@ -237,16 +243,41 @@ public class List_Projects extends ActionBarActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
         switch (item.getItemId()) {
             case R.id.action_updateProject:
 
                 return true;
-            case R.id.action_deleteProject:
-
+            case R.id.action_removeMember:
+                try {
+                    removeMember(task2.getProjectTOList().get(info.position));
+                } catch (SoapFault soapFault) {
+                    soapFault.printStackTrace();
+                }
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
+
+    private void removeMember(ProjectTO project) throws SoapFault {
+        RemoveMemberTask task = new RemoveMemberTask(getApplicationContext(),getApplication(),project,this.myUserId);
+        task.execute(project);
+        giveProjects();
+    }
+
+    public void giveProjects(){
+        try{
+            //Prjektliste abfragen
+            ListProjectTask task3 = new ListProjectTask(getApplicationContext(),getApplication(),myUserId,this);
+            task3.execute(myUserId);
+
+        }
+        catch (NullPointerException e){
+            System.out.println("Keine Projects da");
+        }
+
+    }
+
 
 }

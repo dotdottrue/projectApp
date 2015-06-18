@@ -34,6 +34,9 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
     private ArrayList<Project> projectList = new ArrayList<Project>();
     private ArrayList<String> projectListNames = new ArrayList<String>();
     private ListView listView;
+    public ProjectTO selectedProject;
+    private List<ProjectTO> projectTOList = new ArrayList<ProjectTO>();
+
 
     public ListProjectTask(Context c, Application app, String u, List_Projects act){
         this.context = c;
@@ -59,7 +62,7 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
     }
 
     protected void onPostExecute(final List<ProjectTO> result) {
-
+        this.projectTOList = result;
         System.out.println("Project onPostExecute running");
         if(result == null) {
             //Prüfung ob die Liste <Friendship> bereits gefüllt ist, ansonsten Ausgabe des Toasts
@@ -73,7 +76,7 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
             RelativeLayout ll = (RelativeLayout) this.activity.findViewById(R.id.List_Projects);
             //Listview setzen
             listView = (ListView)this.activity.findViewById(R.id.listView);
-
+            activity.registerForContextMenu(listView);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
                     android.R.layout.simple_list_item_1, android.R.id.text1, projectListNames);
 
@@ -98,8 +101,10 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
                             "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                             .show();
                     //start Detail Activity
+                    selectedProject = result.get(itemPosition);
                     ProjectTO project = result.get(itemPosition);
                     openProject(project);
+                   
                 }
             });
 
@@ -113,6 +118,8 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
         Intent intent = new Intent(this.app, ProjectDetail.class);
         intent.putExtra("project", project);
         activity.startActivity(intent);
+
+
     }
 
     private void createProjectList(List<ProjectTO> projects){
@@ -122,5 +129,22 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
 
         }
         //listView.invalidateViews();
+    }
+
+    public List<ProjectTO> getProjectTOList(){
+        return this.projectTOList;
+    }
+
+    public void giveProjects(){
+        try{
+            //Prjektliste abfragen
+            ListProjectTask task3 = new ListProjectTask(activity.getApplicationContext(),activity.getApplication(),this.userid,this.activity);
+            task3.execute(this.userid);
+
+        }
+        catch (NullPointerException e){
+            System.out.println("Keine Projects da");
+        }
+
     }
 }

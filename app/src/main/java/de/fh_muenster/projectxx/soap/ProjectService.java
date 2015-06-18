@@ -76,10 +76,10 @@ public class ProjectService {
         SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,id,status);
     }
 
-    public static void deleteProject(Project project) throws SoapFault {
-        String method = "deleteProject";
-        long id = project.getProjectid();
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,id);
+    public static void removeMember(ProjectTO project,String userid) throws SoapFault {
+        String method = "removeProjectMember";
+        long id = project.getId();
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,id, userid);
     }
 
     public static void addUserToProject(String phonenumber, long projectid) throws SoapFault {

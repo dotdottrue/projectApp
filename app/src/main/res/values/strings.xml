@@ -38,7 +38,7 @@
     <string name="title_activity_contact__list">Contacts</string>
 
     <string name="cmenu_listProjects_update">Projekt ändern</string>
-    <string name="cmenu_listProjects_delete">Projekt löschen</string>
+    <string name="cmenu_listProjects_removeMember">Projekt verlassen</string>
 
     <string name="pDetail_menue_addUser">Teilnehmer Hinzufügen</string>
     <string name="pDetail_menue_addEvent">Termin Hinzufügen</string>

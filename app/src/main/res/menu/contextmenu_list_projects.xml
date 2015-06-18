@@ -6,8 +6,8 @@
         android:orderInCategory="100"
          />
     <item
-        android:id="@+id/action_deleteProject"
-        android:title="@string/cmenu_listProjects_delete"
+        android:id="@+id/action_removeMember"
+        android:title="@string/cmenu_listProjects_removeMember"
         android:orderInCategory="100"  />
 
 </menu>
