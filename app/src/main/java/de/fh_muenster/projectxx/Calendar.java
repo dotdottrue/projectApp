@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 public class Calendar extends ActionBarActivity {
 
-    CalendarView calendar;
+    private CalendarView calendar;
+    private Appointment ap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,11 @@ public class Calendar extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case R.id.action_settings:
+                openAppointment(this.ap);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -86,8 +87,8 @@ public class Calendar extends ActionBarActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
 
-                Appointment ap = new Appointment(day, month, year);
-                openAppointment(ap);
+                ap = new Appointment(day, month, year);
+
 
             }
         });

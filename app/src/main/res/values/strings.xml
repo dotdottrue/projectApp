@@ -41,6 +41,9 @@
     <string name="cmenu_listProjects_delete">Projekt löschen</string>
 
     <string name="pDetail_menue_addUser">Teilnehmer Hinzufügen</string>
+    <string name="pDetail_menue_addEvent">Termin Hinzufügen</string>
+
+    <string name="calendar_menue_addEvent">Termin Hinzufügen</string>
 
 
 </resources>

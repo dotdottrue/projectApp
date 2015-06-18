@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fh_muenster.projectxx.Device.Contact_List;
 import de.fh_muenster.projectxx.Device.DeviceService;
 import de.fh_muenster.projectxx.Interfaces.AsyncResponse;
 import de.fh_muenster.projectxx.Tasks.ListDiscussionsTask;
@@ -31,8 +32,6 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
     private ProjectTO project;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,66 +41,8 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
 
         setContentView(R.layout.activity_project_detail);
         firstSteps(project);
-        Themenlist.add("Das ist ein Test");
         TextView textViewToChange = (TextView) findViewById(R.id.txt_describe);
         textViewToChange.setText(project.getDescription());
-
-        Button btnCalender = (Button) findViewById(R.id.btnCalender);
-        btnCalender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), Calendar.class);
-                    startActivity(intent);
-                }
-            });
-
-        // Get ListView object from xml
-        disc = (ListView) findViewById(R.id.lv_disc);
-
-        // Define a new Adapter
-        // First parameter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
-        /*
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, Themenlist);
-
-        // Assign adapter to ListView
-        disc.setAdapter(adapter);
-
-        // ListView Item Click Listener
-        disc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // ListView Clicked item index
-                int itemPosition = position;
-
-                // ListView Clicked item value
-                String theme = (String) disc.getItemAtPosition(position).toString();
-                String itemValue = theme;
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
-                //start Detail Activity
-                DiscussionTO forum = forums.get(itemPosition);
-                openForum(forum);
-
-
-            }
-
-        });
-        **/
-
-
-
-
-
 
     }
 
@@ -123,6 +64,12 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
             case R.id.action_newDesc:
                 openNewDesc();
                 return true;
+            case R.id.addUser:
+                openContacts();
+                return true;
+            case R.id.addEvent:
+                openCalendar();
+                return true;
             case R.id.action_settings:
                 //openSettings();
                 return true;
@@ -139,27 +86,7 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
             intent.putExtra("project", this.project);
             startActivity(intent);
     }
-    /*
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                String fTitle=data.getStringExtra("fTitle");
-                String fDesc=data.getStringExtra("fDesc");
-                Forum forum = new Forum(fTitle, fDesc);
-                Themenlist.add(forum.getTitle());
-                forums.add(forum);
-                disc.invalidateViews();
-
-
-
-            }
-            if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }
-    **/
 
     private void openForum(DiscussionTO forum) {
         Intent intent = new Intent(this, ForumPosts.class);
@@ -181,12 +108,18 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
     private void createDiscussenList(List<DiscussionTO> discs){
         for(DiscussionTO disc : discs) {
             Themenlist.add(disc.getTopic());
-            System.out.println("createDiscussionList: " + disc.getTopic());
-
 
         }
+    }
 
-        //listView.invalidateViews();
+    private void openContacts(){
+        Intent intent = new Intent(this, Contact_List.class);
+        startActivity(intent);
+    }
+
+    private void openCalendar(){
+        Intent intent = new Intent(this, Calendar.class);
+        startActivity(intent);
     }
 
     @Override
