@@ -20,8 +20,9 @@ import java.util.ArrayList;
 import de.fh_muenster.projectxx.Device.DeviceService;
 import de.fh_muenster.projectxx.Tasks.ListNotesTask;
 import de.fh_muenster.projectxx.Tasks.NewNoteTask;
-import de.project.dto.NoteTO;
+
 import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.note.NoteTO;
 
 
 public class ForumPosts extends ActionBarActivity {

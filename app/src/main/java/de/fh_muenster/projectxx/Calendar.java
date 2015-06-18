@@ -12,26 +12,26 @@ import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.Toast;
 
+import java.util.Date;
+
+import de.project.dto.appointment.AppointmentTO;
+import de.project.dto.project.ProjectTO;
+
 
 public class Calendar extends ActionBarActivity {
 
     private CalendarView calendar;
-    private Appointment ap;
+    private AppointmentTO ap;
+    private ProjectTO project;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        Intent i = getIntent();
+        this.project = (ProjectTO)i.getSerializableExtra("project");
         initializeCalendar();
 
-        Button btnNewApp = (Button) findViewById(R.id.btnCalender);
-        btnNewApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), add_appointment.class);
-                startActivity(intent);
-            }
-        });
     }
 
 
@@ -50,7 +50,10 @@ public class Calendar extends ActionBarActivity {
 
         switch(item.getItemId()){
             case R.id.action_settings:
-                openAppointment(this.ap);
+
+                return true;
+            case R.id.action_newEventCalendar:
+                addAppointment();
                 return true;
         }
 
@@ -86,8 +89,12 @@ public class Calendar extends ActionBarActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                Date date = new Date(year-1900,month,day);
+                System.out.println("Jahr: " +year);
+                System.out.println("Was ein Termin! "+date.toString());
+                ap = new AppointmentTO();
+                ap.setAppointmentDate(date.getTime());
 
-                ap = new Appointment(day, month, year);
 
 
             }
@@ -95,9 +102,10 @@ public class Calendar extends ActionBarActivity {
     }
 
 
-    public void openAppointment(Appointment ap){
+    public void addAppointment(){
         Intent intent = new Intent(this, add_appointment.class);
-        intent.putExtra("appointment", ap);
+        intent.putExtra("appointment", this.ap);
+        intent.putExtra("project",this.project);
         startActivity(intent);
 
     }

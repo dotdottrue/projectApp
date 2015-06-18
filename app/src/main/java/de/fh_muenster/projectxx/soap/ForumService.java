@@ -23,13 +23,12 @@ public class ForumService {
         String method = "getDiscussionsByProject";
 
         ArrayList<DiscussionTO> discussionList = new ArrayList<DiscussionTO>();
-        ArrayList<DiscussionTO> discussionList1 = new ArrayList<DiscussionTO>();
 
         SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL2,project.getId());
 
 
         //ArrayList zu Projekten Aufbauen
-        for(int i = 0;i< result.getPropertyCount();i++)
+        for(int i = 1;i< result.getPropertyCount();i++)
         {
             SoapObject object = (SoapObject) result.getProperty(i);
             DiscussionTO discussion = new DiscussionTO();

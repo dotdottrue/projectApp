@@ -1,6 +1,7 @@
 package de.fh_muenster.projectxx.Device;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import de.fh_muenster.projectxx.R;
+import de.fh_muenster.projectxx.Tasks.ListContactsTask;
+import de.project.dto.project.ProjectTO;
+
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -24,14 +28,14 @@ public class Contact_List extends ActionBarActivity {
     public TextView outputText;
     private ArrayList<String> contactPhonenumbers;
     private HashMap<String,String> contacts;
+    private ProjectTO project;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact__list);
-
-
-
-        this.contacts = DeviceService.getMyContacts(getContentResolver());
+        Intent i = getIntent();
+        project = (ProjectTO)i.getSerializableExtra("project");
+        firststeps();
 
     }
 
@@ -56,6 +60,11 @@ public class Contact_List extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void firststeps(){
+        ListContactsTask task = new ListContactsTask(getApplicationContext(),getApplication(),this,this.project);
+        task.execute();
     }
 
 

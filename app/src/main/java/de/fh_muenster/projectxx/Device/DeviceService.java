@@ -17,7 +17,7 @@ public class DeviceService {
 
     public static String getMyPhonenumber(Context context){
         TelephonyManager phn_mngr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        return phn_mngr.getLine1Number();
+        return phn_mngr.getLine1Number().replaceAll("\\+","");
     }
 
     public static HashMap<String,String> getMyContacts(ContentResolver contentResolver){
@@ -62,8 +62,15 @@ public class DeviceService {
                     while (phoneCursor.moveToNext()) {
 
                         phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+                        if(phoneNumber.startsWith("0")){
+                            String s1 = phoneNumber.substring(1);
+                            phoneNumber = "49"+s1;
+                        }
+                        phoneNumber = phoneNumber.replaceAll(" ", "");
+                        phoneNumber = phoneNumber.replaceAll("\\+", "");
+                        phoneNumber = phoneNumber.replaceAll("/", "");
                         output.append("\n Phone number:" + phoneNumber);
-                        myContacts.put(phoneNumber,name);
+                        myContacts.put(phoneNumber.trim(),name);
 
                     }
 
@@ -115,8 +122,14 @@ public class DeviceService {
                     while (phoneCursor.moveToNext()) {
 
                         phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-
-                        myContacts.add(phoneNumber);
+                        if(phoneNumber.startsWith("0")){
+                            String s1 = phoneNumber.substring(1);
+                            phoneNumber = "49"+s1;
+                        }
+                        phoneNumber = phoneNumber.replaceAll(" ", "");
+                        phoneNumber = phoneNumber.replaceAll("\\+", "");
+                        phoneNumber = phoneNumber.replaceAll("/", "");
+                        myContacts.add(phoneNumber.trim());
 
                     }
 

@@ -29,7 +29,7 @@ public class ProjectService {
 
 
             //ArrayList zu Projekten Aufbauen
-            for(int i = 1;i< result.getPropertyCount();i++)
+            for(int i = 2;i< result.getPropertyCount();i++)
             {
                 SoapObject object = (SoapObject) result.getProperty(i);
                 ProjectTO project = new ProjectTO();
@@ -42,18 +42,7 @@ public class ProjectService {
                 projecttoList.add(project);
             }
 
-
-            //ProjectsResponse projects = (ProjectsResponse)result.getPrimitiveProperty("response");
-            /*
-            projectList = projects.getProjects();
-            return projectList;
-            **/
             return projecttoList;
-
-
-
-
-
 
         }
         catch (NullPointerException e){
@@ -95,6 +84,6 @@ public class ProjectService {
 
     public static void addUserToProject(String phonenumber, long projectid) throws SoapFault {
         String method = "addUserToProject";
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,phonenumber,projectid);
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,phonenumber,projectid);
     }
 }

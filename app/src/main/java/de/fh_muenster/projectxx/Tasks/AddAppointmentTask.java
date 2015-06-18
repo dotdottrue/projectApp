@@ -5,35 +5,32 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.ksoap2.SoapFault;
-
-import de.fh_muenster.projectxx.Project;
-import de.fh_muenster.projectxx.soap.NoteService;
+import de.fh_muenster.projectxx.soap.AppointmentService;
 import de.fh_muenster.projectxx.soap.ProjectService;
-import de.project.dto.note.NoteTO;
-import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.appointment.AppointmentTO;
+import de.project.dto.project.ProjectTO;
 
 /**
  * Created by user on 18.06.15.
  */
-public class AddUserToProjectTask extends AsyncTask<String,String,String> {
+public class AddAppointmentTask extends AsyncTask<String,String,String> {
+    private AppointmentTO ap;
+    private ProjectTO project;
     private Context context;
     private Application app;
-    private String phonenumber;
-    private long projectid;
 
+    public  AddAppointmentTask (AppointmentTO app, ProjectTO project, Context con, Application ap){
+        this.ap = app;
+        this.project = project;
+        this.context = con;
+        this.app = ap;
 
-    public AddUserToProjectTask(Context c, Application a, String phonenumber, long projectid){
-        this.context = c;
-        this.app = a;
-        this.projectid = projectid;
-        this.phonenumber = phonenumber;
     }
 
     protected String doInBackground(String... params) {
         try {
-            ProjectService.addUserToProject(this.phonenumber,this.projectid);
-            return "User hinzugefügt!";
+            AppointmentService.addAppointment(this.ap,this.project);
+            return "Appointment hinzugefügt!";
         }
         catch (Exception e) {
             Toast.makeText(app.getApplicationContext(), "Serververbindung konnte nicht erfolgreich aufgebaut werden!", Toast.LENGTH_SHORT).show();

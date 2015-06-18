@@ -19,6 +19,7 @@ import java.util.List;
 import de.fh_muenster.projectxx.Device.Contact_List;
 import de.fh_muenster.projectxx.Device.DeviceService;
 import de.fh_muenster.projectxx.Interfaces.AsyncResponse;
+import de.fh_muenster.projectxx.Tasks.ListAppointmentsTask;
 import de.fh_muenster.projectxx.Tasks.ListDiscussionsTask;
 import de.project.dto.discussion.DiscussionTO;
 import de.project.dto.project.ProjectTO;
@@ -100,6 +101,10 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
         task.delegate = this;
         task.execute(project);
 
+        //Appointments abrufen
+        ListAppointmentsTask task2 = new ListAppointmentsTask(this.project,getApplicationContext(),getApplication(),this);
+        task2.execute("");
+
 
 
 
@@ -114,11 +119,13 @@ public class ProjectDetail extends ActionBarActivity implements AsyncResponse {
 
     private void openContacts(){
         Intent intent = new Intent(this, Contact_List.class);
+        intent.putExtra("project",this.project);
         startActivity(intent);
     }
 
     private void openCalendar(){
         Intent intent = new Intent(this, Calendar.class);
+        intent.putExtra("project",this.project);
         startActivity(intent);
     }
 

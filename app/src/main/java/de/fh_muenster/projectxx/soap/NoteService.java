@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 import de.fh_muenster.projectxx.Forum;
 import de.fh_muenster.projectxx.Post;
-import de.project.dto.NoteTO;
+
 import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.note.NoteTO;
 import de.project.dto.project.ProjectTO;
 
 /**
@@ -25,7 +26,7 @@ public class NoteService {
 
             SoapObject result = (SoapObject) SoapService.executeSoapAction(method, SoapService.URL2, forumid);
 
-            for (int i = 0; i < result.getPropertyCount(); i++) {
+            for (int i = 1; i < result.getPropertyCount(); i++) {
                 SoapObject object = (SoapObject) result.getProperty(i);
                 NoteTO note = new NoteTO();
                 note.setNote(object.getProperty("note").toString());

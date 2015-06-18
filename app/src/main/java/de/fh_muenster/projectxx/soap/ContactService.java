@@ -9,6 +9,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.net.Proxy;
 import java.util.ArrayList;
 
+import de.fh_muenster.projectxx.Device.DeviceService;
 import de.project.dto.user.UserTO;
 
 /**
@@ -24,19 +25,22 @@ public class ContactService {
     }
 
     public static ArrayList<UserTO>  compaireContacts(ArrayList<String> contacts) throws SoapFault{
-        String method = "compaireUser";
-        SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL,contacts);
-
+        String method = "comparePhonebook";
+        SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL2,contacts);
+        System.out.println("ZUrück im Service");
         //ArrayList zu Projekten Aufbauen
         ArrayList<UserTO> users = new ArrayList<UserTO>();
-        for(int i = 1;i< result.getPropertyCount();i++)
+        System.out.println(result.getPropertyCount());
+        for(int i = 0;i< result.getPropertyCount();i++)
         {
+
             SoapObject object = (SoapObject) result.getProperty(i);
             UserTO user = new UserTO();
-            user.setPhoneNumber(object.getProperty("phonenumber").toString());
+            user.setPhoneNumber(object.getProperty("phoneNumber").toString());
+            System.out.println(user.getPhoneNumber());
             users.add(user);
         }
-
+        System.out.println("VErlasse Contact Service");
         return users;
     }
 

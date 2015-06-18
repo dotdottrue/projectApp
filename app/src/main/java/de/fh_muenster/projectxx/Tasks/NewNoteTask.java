@@ -9,8 +9,9 @@ import org.ksoap2.SoapFault;
 
 import de.fh_muenster.projectxx.soap.ForumService;
 import de.fh_muenster.projectxx.soap.NoteService;
-import de.project.dto.NoteTO;
+
 import de.project.dto.discussion.DiscussionTO;
+import de.project.dto.note.NoteTO;
 import de.project.dto.project.ProjectTO;
 
 /**

@@ -35,10 +35,22 @@
         android:text="@string/disc"
         android:textColor="@color/darkgreen"
         android:id="@+id/disc"
+        android:layout_marginTop="48dp"
         android:layout_below="@+id/txt_describe"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="70dp" />
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/termin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="190dp" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -47,29 +59,15 @@
         android:layout_below="@+id/disc"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/termin" />
+        android:layout_alignBottom="@+id/termin" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <ListView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/termin"
-        android:textColor="@color/darkgreen"
-        android:id="@+id/termin"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/lv_appointment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="135dp" />
+        android:layout_below="@+id/lv_disc" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Calender"
-        android:id="@+id/btnCalender"
-        android:layout_below="@+id/btnCalender"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

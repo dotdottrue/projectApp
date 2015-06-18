@@ -59,6 +59,7 @@ public class SoapService {
             if(args[i] instanceof ArrayList) {
                 ArrayList<String> contacts = (ArrayList<String>) args[i];
                 for(String s : contacts){
+
                     request.addProperty("arg"+argCounter,s);
                 }
 
@@ -105,7 +106,7 @@ public class SoapService {
 
             //result = envelope.getResponse();
             if (result instanceof SoapFault) {
-                //throw (SoapFault) result;
+                throw (SoapFault) result;
             }
         }
         catch (SoapFault e) {

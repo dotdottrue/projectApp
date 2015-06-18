@@ -14,9 +14,15 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 
+import de.fh_muenster.projectxx.Tasks.AddAppointmentTask;
+import de.project.dto.appointment.AppointmentTO;
+import de.project.dto.project.ProjectTO;
+
 
 public class add_appointment extends ActionBarActivity {
     EditText AppointmentNameTxt, AppointmentDescribeTxt;
+    private AppointmentTO ap;
+    private ProjectTO project;
 
 
 
@@ -25,7 +31,8 @@ public class add_appointment extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Intent i = getIntent();
-        Appointment ap = (Appointment) i.getSerializableExtra("appointment");
+        this.ap = (AppointmentTO) i.getSerializableExtra("appointment");
+        this.project = (ProjectTO) i.getSerializableExtra("project");
         setContentView(R.layout.activity_add_appointment);
 
 
@@ -54,10 +61,10 @@ public class add_appointment extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Termin wurde erstellt", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.putExtra("AppointmentName",AppointmentNameTxt.getText().toString());
-                intent.putExtra("AppointmentDescribe",AppointmentDescribeTxt.getText().toString());
-                setResult(RESULT_OK, intent);
+                ap.setTopic(AppointmentNameTxt.getText().toString());
+                ap.setDescription(AppointmentDescribeTxt.getText().toString());
+                addAppointment();
+
                 finish();
 
             }
@@ -90,5 +97,11 @@ public class add_appointment extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addAppointment(){
+        AddAppointmentTask task = new AddAppointmentTask(this.ap,this.project,getApplicationContext(),getApplication());
+        task.execute("");
+
     }
 }

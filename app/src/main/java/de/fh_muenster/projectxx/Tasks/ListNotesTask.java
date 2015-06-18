@@ -20,7 +20,7 @@ import de.fh_muenster.projectxx.Project;
 import de.fh_muenster.projectxx.R;
 import de.fh_muenster.projectxx.soap.NoteService;
 import de.fh_muenster.projectxx.soap.ProjectService;
-import de.project.dto.NoteTO;
+import de.project.dto.note.NoteTO;
 import de.project.dto.discussion.DiscussionTO;
 import de.project.dto.project.ProjectTO;
 

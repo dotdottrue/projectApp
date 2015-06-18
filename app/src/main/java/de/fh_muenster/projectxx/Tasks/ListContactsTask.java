@@ -3,6 +3,7 @@ package de.fh_muenster.projectxx.Tasks;
 import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.ArrayRes;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +36,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
     private String userid;
     private ArrayList<String> contactPhoneNumbersServer = new ArrayList<String>();
     private ArrayList<String> contactPhoneNumbers = new ArrayList<String>();
+    private ArrayList<String> contactNames = new ArrayList<String>();
     private Contact_List activity;
     private ListView contacts;
     public AsyncResponse delegate = null;
@@ -67,7 +69,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
 
 
         contacts = (ListView)this.activity.findViewById(R.id.contactlist);
-        this.contacts.invalidateViews();
+        //this.contacts.invalidateViews();
 
         if(result == null) {
             //Prüfung ob die Liste <Friendship> bereits gefüllt ist, ansonsten Ausgabe des Toasts
@@ -78,6 +80,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
         else {
 
             createPhonenumberListServer(result);
+
             createContactList();
             //Layout anhand der ID suchen und in Variable speichern
             RelativeLayout ll = (RelativeLayout) this.activity.findViewById(R.id.activity_ContactList);
@@ -85,7 +88,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
             this.contacts = (ListView)this.activity.findViewById(R.id.contactlist);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, this.contactPhoneNumbers);
+                    android.R.layout.simple_list_item_1, android.R.id.text1, this.contactNames);
 
             // Assign adapter to ListView
             this.contacts.setAdapter(adapter);
@@ -109,9 +112,11 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
                             .show();
                     //start Detail Activity
 
-                    addUser(itemValue);
+                    addUser(contactPhoneNumbers.get(itemPosition));
+                    activity.finish();
                 }
             });
+
 
 
         }
@@ -131,6 +136,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
             String myContact = phonenumbersContactNames.get(phonenumber);
             if(myContact != null){
                 this.contactPhoneNumbers.add(phonenumber);
+                this.contactNames.add(myContact);
             }
         }
     }
