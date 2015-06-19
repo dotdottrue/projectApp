@@ -4,4 +4,9 @@
         <item name="grey" type="color">#555555</item>
         <item name="green" type="color">#9999CC00</item>
         <item name="darkgreen" type="color">#FF669900</item>
+        <item name="activityBackground" type="color">#303030</item>
+        <item name="textColor" type="color">#00C0C0</item>
+        <item name="textColorHint" type="color">#00E0E0</item>
+        <item name="btnBackground" type="color">#D0D0D0</item>
+        <item name="btnTextColor" type="color">#006060</item>
 </resources>
