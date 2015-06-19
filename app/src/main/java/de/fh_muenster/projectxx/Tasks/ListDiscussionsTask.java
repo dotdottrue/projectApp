@@ -112,7 +112,7 @@ public class ListDiscussionsTask extends AsyncTask<ProjectTO,String,List<Discuss
 
                     // Show Alert
                     Toast.makeText(context,
-                            "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                            "Diskussion wird geöffnet", Toast.LENGTH_LONG)
                             .show();
                     //start Detail Activity
                     DiscussionTO discussion = result.get(itemPosition);

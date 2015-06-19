@@ -48,5 +48,16 @@
     <string name="txt_AppointmentName">Terminname</string>
     <string name="btnAddAppointment">Termin hinzufügen</string>
 
+    <string name="title_activity_update_project">UpdateProject</string>
+    <string name="statusINTIME">INTIME</string>
+    <string name="statusDELAYED">DELAYED</string>
+    <string name="statusOUTOFTIME">OUTOFTIME</string>
+    <string name="statusFINISHED">FINISHED</string>
+    <string name="btn_aendern">Projekt ändern</string>
+    <string name="menutxt_RemoveAppointment">Termin löschen</string>
+
+
+
+
 
 </resources>

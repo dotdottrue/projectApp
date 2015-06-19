@@ -37,6 +37,11 @@ public class AppointmentService {
             dateT.setTime(d);
 
             app.setAppointmentDate(dateT.getTime());
+
+            String id = object.getProperty("id").toString();
+            Long lid = Long.valueOf(id).longValue();
+            long appid = lid;
+            app.setId(appid);
             appointmentList.add(app);
 
 
@@ -56,7 +61,11 @@ public class AppointmentService {
 
     }
 
-    public static  void deleteAppointment(){
+    public static  void deleteAppointment(ProjectTO project, AppointmentTO appointment) throws SoapFault {
+        String method = "removeProjectAppointment";
+        long projectid = project.getId();
+        long appointmentID = appointment.getId();
+        SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL2,projectid,appointmentID);
 
     }
 }

@@ -250,7 +250,7 @@ public class List_Projects extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.action_updateProject:
-
+                openUpdateProject(task2.getProjectTOList().get(info.position));
                 return true;
             case R.id.action_removeMember:
                 try {
@@ -281,6 +281,13 @@ public class List_Projects extends ActionBarActivity {
             System.out.println("Keine Projects da");
         }
 
+    }
+
+    private void openUpdateProject(ProjectTO project){
+        Intent intent = new Intent(this, UpdateProject.class);
+        intent.putExtra("project", project);
+        startActivity(intent);
+        finish();
     }
 
 

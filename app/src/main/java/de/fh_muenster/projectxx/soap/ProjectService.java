@@ -80,19 +80,16 @@ public class ProjectService {
 
     }
 
-    public static void updateProject(Project project, String userid) throws SoapFault {
+    public static void updateProject(ProjectTO project) throws SoapFault {
         String method ="updateProject";
-        String title = project.getProjectname();
+        String title = project.getProjectName();
         String desc = project.getDescription();
-        long id = project.getProjectid();
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,id,title,desc);
+        long id = project.getId();
+        String status = project.getProjectStatus().toString();
+        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,id,title,desc,status);
     }
 
-    public static void updateStatus(Project project, String status) throws SoapFault {
-        String method = "updateStatus";
-        long id = project.getProjectid();
-        SoapObject result = SoapService.executeSoapAction(method,SoapService.URL,id,status);
-    }
+
 
     public static void removeMember(ProjectTO project,String userid) throws SoapFault {
         String method = "removeProjectMember";

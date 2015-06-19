@@ -131,7 +131,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
     }
 
     private void createContactList(){
-        HashMap<String,String> phonenumbersContactNames = DeviceService.getMyContacts(activity.getContentResolver());
+        HashMap<String,String> phonenumbersContactNames = DeviceService.myContacts;
         for(String phonenumber : this.contactPhoneNumbersServer){
             String myContact = phonenumbersContactNames.get(phonenumber);
             if(myContact != null){

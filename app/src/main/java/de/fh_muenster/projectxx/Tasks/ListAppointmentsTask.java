@@ -34,7 +34,9 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
     private Activity activity;
     private ArrayList<String> appointmentTopicList = new ArrayList<String>();
     private ArrayList<String> appointmentDates = new ArrayList<String>();
+    private List<AppointmentTO> appointments = new ArrayList<AppointmentTO>();
     static final long ONE_HOUR = 60 * 60 * 1000L;
+    public AppointmentTO selectedAppointment;
 
     public  ListAppointmentsTask (ProjectTO project, Context con, Application ap,Activity activity){
         this.project = project;
@@ -74,7 +76,7 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
             //Listview setzen
             appList = (ListView)this.activity.findViewById(R.id.lv_appointment);
             AppointmentArrayAdapter adapter = new AppointmentArrayAdapter(this.activity,this.appointmentTopicList,this.appointmentDates);
-
+            activity.registerForContextMenu(appList);
             //ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
             //        R.layout.listitemdetails2, R.id.listViewDetailItem2, appointmentTopicList);
 
@@ -96,8 +98,9 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
 
                     // Show Alert
                     Toast.makeText(context,
-                            "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                            appointments.get(itemPosition).getDescription() , Toast.LENGTH_LONG)
                             .show();
+                    selectedAppointment = appointments.get(itemPosition);
                     //start Detail Activity
 
                 }
@@ -110,6 +113,7 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
     }
 
     private void createAppointmentList(List<AppointmentTO> result){
+        this.appointments = result;
         for(AppointmentTO a : result){
             this.appointmentTopicList.add(a.getTopic());
             Date appointmentDate = new Date();
@@ -137,5 +141,9 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
 
     public long daysBetween(Date d1, Date d2){
         return ( (d2.getTime() - d1.getTime() + ONE_HOUR) / (ONE_HOUR * 24));
+    }
+
+    public List<AppointmentTO> getAppointmentlist(){
+        return this.appointments;
     }
 }
