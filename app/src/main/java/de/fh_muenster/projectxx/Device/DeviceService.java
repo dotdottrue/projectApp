@@ -11,15 +11,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by user on 13.06.15.
+ * Diese Klasse stellt alle Services bereit zum Abfragen der Device Schnittstellen
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 13.06.15
  */
 public class DeviceService {
-
+    /**
+     * Beim Start der App werden Objekte global gefüllt welche lange Rechenleistung benötigen
+     * myContacts:      Enthält alle Telefonnumern als Key und alle Contactnamen als value des Adressbuches
+     * myPhoneNumber:   Enthält die eigene Rufnummer des Gerätes
+     */
     public static HashMap<String,String> myContacts;
     public static String myPhoneNumber;
 
+    /**
+     * Diese Methode ruft die eigene Rufnummer des Gerätes ab und speichert diese in myPhoneNumber
+     * @param context Aktueller Activitycontext
+     * @return Gibt zusätzlich die eigene Rufnummer direkt an dne Aufrufer zurück
+     */
     public static String getMyPhonenumber(Context context){
         TelephonyManager phn_mngr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        //Sonderzeichen aus der Rufnummer entfernen
         myPhoneNumber = phn_mngr.getLine1Number().replaceAll("\\+","");
         if(myPhoneNumber.startsWith("0")){
             String s1 = myPhoneNumber.substring(1);
@@ -29,10 +41,14 @@ public class DeviceService {
         myPhoneNumber = myPhoneNumber.replaceAll("\\+", "");
         myPhoneNumber = myPhoneNumber.replaceAll("/", "");
 
-
         return phn_mngr.getLine1Number().replaceAll("\\+","");
     }
 
+    /**
+     * Diese Methode ruft alle Telefonnummer und Contactnamen aus dem Telefonbuch des Gerätes ab
+     * @param contentResolver enthält den Activity Contentresolver
+     * @return Gibt eine gefüllte HashMap zurück mit Telefonnummer als Key und dem Namen als value
+     */
     public static HashMap<String,String> getMyContacts(ContentResolver contentResolver){
         String phoneNumber = null;
         String email = null;
@@ -48,13 +64,9 @@ public class DeviceService {
         Uri EmailCONTENT_URI =  ContactsContract.CommonDataKinds.Email.CONTENT_URI;
         String EmailCONTACT_ID = ContactsContract.CommonDataKinds.Email.CONTACT_ID;
         String DATA = ContactsContract.CommonDataKinds.Email.DATA;
-        StringBuffer output = new StringBuffer();
 
-        //ContentResolver contentResolver = getContentResolver();
 
         Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
-
-        // Loop for every contact in the phone
 
         if (cursor.getCount() > 0) {
 
@@ -65,8 +77,6 @@ public class DeviceService {
                 int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
 
                 if (hasPhoneNumber > 0) {
-
-                    output.append("\n First Name:" + name);
 
                     // Query and loop for every phone number of the contact
 
@@ -82,16 +92,11 @@ public class DeviceService {
                         phoneNumber = phoneNumber.replaceAll(" ", "");
                         phoneNumber = phoneNumber.replaceAll("\\+", "");
                         phoneNumber = phoneNumber.replaceAll("/", "");
-
                         myContacts.put(phoneNumber.trim(),name);
 
                     }
                     myContacts.put(DeviceService.myPhoneNumber,"Du");
-
                     phoneCursor.close();
-
-
-
                 }
 
             }
@@ -101,9 +106,13 @@ public class DeviceService {
     }
 
 
+    /**
+     * Diese Methode ruft alle Telefonnummer des Adressbuches ab
+     * @param contentResolver enthält den Activity Contentresolver
+     * @return  Gibt eine ArrayList<String> zurück mit allen Telefonnummern
+     */
     public static ArrayList<String> getMyContactsPhonenumbers(ContentResolver contentResolver){
         String phoneNumber = null;
-
         ArrayList<String> myContacts = new ArrayList<String>();
 
         Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
@@ -119,7 +128,6 @@ public class DeviceService {
         Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
 
         // Loop for every contact in the phone
-
         if (cursor.getCount() > 0) {
 
             while (cursor.moveToNext()) {
@@ -128,9 +136,7 @@ public class DeviceService {
                 int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
 
                 if (hasPhoneNumber > 0) {
-
                     // Query and loop for every phone number of the contact
-
                     Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
 
                     while (phoneCursor.moveToNext()) {
@@ -144,11 +150,8 @@ public class DeviceService {
                         phoneNumber = phoneNumber.replaceAll("\\+", "");
                         phoneNumber = phoneNumber.replaceAll("/", "");
                         myContacts.add(phoneNumber.trim());
-
                     }
-
                     phoneCursor.close();
-
                 }
 
             }

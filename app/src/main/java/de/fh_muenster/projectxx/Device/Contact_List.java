@@ -23,24 +23,40 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Diese Klasse verwaltet und baut die Contact_List Activity auf
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 08.06.15
+ */
 public class Contact_List extends ActionBarActivity {
 
+    /**
+     * Es werden diverse Attribute benötigt um zustände zu speichern
+     * contactPhonenumbers:     Enthält alle Telefonnummern aus dem eigenen Adressbuch
+     * contacts:                Enthält alle Telefonummern als Key sowie alle Kontaktnamen als value
+     * project:                 Enthält das aktuelle Projekt
+     */
     public TextView outputText;
     private ArrayList<String> contactPhonenumbers;
     private HashMap<String,String> contacts;
     private ProjectTO project;
+
     @Override
+    /**
+     * Baut die Activity auf
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact__list);
         Intent i = getIntent();
         project = (ProjectTO)i.getSerializableExtra("project");
         firststeps();
-
     }
 
-
     @Override
+    /**
+     * Erzeugt das App Menü
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_contact__list, menu);
@@ -48,6 +64,9 @@ public class Contact_List extends ActionBarActivity {
     }
 
     @Override
+    /**
+     * Regestriert wenn ein Menüeintrag aktiviert wird und reagiert entsprechent
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -62,12 +81,13 @@ public class Contact_List extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Verwaltet alle Fnktionen welche beim start der Activity benutzerdefiniert stattfinden müssen
+     * Erzeugt z.B. die Async Task zum abrufen von Daten beim Server
+     */
     private void firststeps(){
         ListContactsTask task = new ListContactsTask(getApplicationContext(),getApplication(),this,this.project);
         task.execute();
     }
-
-
-
 
 }
