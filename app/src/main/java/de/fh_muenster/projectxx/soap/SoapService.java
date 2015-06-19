@@ -15,13 +15,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by user on 08.06.15.
+ * Diese Klasse stellt die grundlegende Kommunikation via soap bereit
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 08.06.15
  */
 public class SoapService {
     /**
      * Namespace is the targetNamespace in the WSDL.
      */
-    public static final String NAMESPACE = "http://integration.project.de/";//"http://integration.project.de/";
+    public static final String NAMESPACE = "http://integration.project.de/";
     /**
      * The WSDL URL. Its value is the location attribute of the soap:address element for a port
      * element in a WSDL. Unless the web service is also hosted on the Android device, the hostname
@@ -32,14 +34,10 @@ public class SoapService {
 
     public static final String URL = "http://192.168.1.105:8080/project/UserIntegration?wsdl";
     public static final String URL2 = "http://192.168.1.105:8080/project/ProjectIntegration?wsdl";
-    public static final Date formatInputToDate(String date) throws ParseException {
-        SimpleDateFormat output = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-        return output.parse(date);
-    }
 
     /**
      * Diese Methode delegiert einen Methodenaufruf an den hinterlegten WebService.
-     * @param methodName
+     * @param methodName    Methodenname des WEbservice
      * @return
      */
     public static SoapObject executeSoapAction(String methodName, String url, Object... args) throws SoapFault {
@@ -51,15 +49,9 @@ public class SoapService {
         /* The array of arguments is copied into properties of the SOAP request using the addProperty method. */
         int argCounter = 0;
         for (int i=0; i<args.length; i++) {
-            //PropertyInfo propInfo = new PropertyInfo();
-            //propInfo.name = "arg" + i;
-            //propInfo.type = PropertyInfo.STRING_CLASS;
-           //request.addProperty(propInfo);
-
-            if(args[i] instanceof ArrayList) {
+          if(args[i] instanceof ArrayList) {
                 ArrayList<String> contacts = (ArrayList<String>) args[i];
                 for(String s : contacts){
-
                     request.addProperty("arg"+argCounter,s);
                 }
 
@@ -91,20 +83,13 @@ public class SoapService {
         /* Make the soap call using the SOAP_ACTION and the soap envelop. */
             List<HeaderProperty> reqHeaders = null;
             @SuppressWarnings({"unused", "unchecked"})
-            //List<HeaderProperty> respHeaders = androidHttpTransport.call(NAMESPACE + methodName, envelope, reqHeaders);
-            //fuehrt zu CXF-Fehler! neue Version ohne SOAP-Action funktioniert:
             List<HeaderProperty> respHeaders = androidHttpTransport.call("", envelope, reqHeaders);
-            //List<HeaderProperty> respHeaders = androidHttpTransport.call(NAMESPACE+methodName, envelope,reqHeaders);
             System.out.println("nach call");
             /* Get the web service response using the getResponse method of the SoapSerializationEnvelope object.
             * The result has to be cast to SoapPrimitive, the class used to encapsulate primitive types, or to SoapObject.
             */
-
-             //SoapPrimitive resultsString = (SoapPrimitive)envelope.getResponse();
              result = envelope.getResponse();
-             //result = resultsString.toString();
 
-            //result = envelope.getResponse();
             if (result instanceof SoapFault) {
                 throw (SoapFault) result;
             }

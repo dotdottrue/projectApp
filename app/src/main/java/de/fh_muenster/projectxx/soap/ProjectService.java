@@ -1,36 +1,31 @@
 package de.fh_muenster.projectxx.soap;
-
-
-import android.widget.Switch;
-
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import de.fh_muenster.projectxx.Project;
-import de.project.dto.project.ProjectResponse;
 import de.project.dto.project.ProjectTO;
-import de.project.dto.project.ProjectsResponse;
 import de.project.enumerations.ProjectStatus;
 
 /**
- * Created by user on 08.06.15.
+ * Diese Klasse stellt alle Service zum Thema Projecte bereit und bereitet die Soap verbindung vor
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 08.06.15
  */
 public class ProjectService {
 
-
-
+    /**
+     * Diese Methode ruft die Projektliste zu meinem Gerät beim Server ab
+     * @param userid    eigene Rufnummer
+     * @return  ArrayList von Typ ProjectTo
+     * @throws SoapFault
+     */
     public static ArrayList<ProjectTO> getProjectList(String userid) throws SoapFault {
         List<ProjectTO> projectList = null;
         try{
             String method = "getProjectsByPhone";
             ArrayList<ProjectTO> projecttoList = new ArrayList<ProjectTO>();
-
             SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL2,userid);
-
-
             //ArrayList zu Projekten Aufbauen
             for(int i = 2;i< result.getPropertyCount();i++)
             {
@@ -59,27 +54,34 @@ public class ProjectService {
                 project.setId(test);
                 projecttoList.add(project);
             }
-
             return projecttoList;
-
         }
         catch (NullPointerException e){
-            System.out.println("Error ALTER! " + e);
+            System.out.println("Es ist ein Fehler aufgetreten! " + e);
             return null;
         }
 
 
     }
 
+    /**
+     * Diese Methode erzeugt ein neues Projekt
+     * @param project   Neu erzeugtes Projekt
+     * @param userid    meine Telefonnummer
+     * @throws SoapFault
+     */
     public static void addProject(Project project, String userid) throws SoapFault {
         String method = "createProject";
         String title = project.getProjectname();
         String desc = project.getDescription();
         SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,userid,title,desc);
-        //Response code "OK", "Error"
-
     }
 
+    /**
+     * Diese Methode teilt dem Server änderungen an den Projektdaten mit
+     * @param project   geändertes Projekt
+     * @throws SoapFault
+     */
     public static void updateProject(ProjectTO project) throws SoapFault {
         String method ="updateProject";
         String title = project.getProjectName();
@@ -89,14 +91,24 @@ public class ProjectService {
         SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,id,title,desc,status);
     }
 
-
-
+    /**
+     * Diese Methode entfernt mich selbst aus dem Projekt (Projekt verlassen)
+     * @param project   Aktuelles Projekt
+     * @param userid    Meine Telefonnummer
+     * @throws SoapFault
+     */
     public static void removeMember(ProjectTO project,String userid) throws SoapFault {
         String method = "removeProjectMember";
         long id = project.getId();
         SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,id, userid);
     }
 
+    /**
+     * Diese Methode fügt einen Kintakt zum Projekt hinzu
+     * @param phonenumber   Telefonnummer des Kontakts
+     * @param projectid     Projeltid des Aktuellen Projektes
+     * @throws SoapFault
+     */
     public static void addUserToProject(String phonenumber, long projectid) throws SoapFault {
         String method = "addUserToProject";
         SoapObject result = SoapService.executeSoapAction(method,SoapService.URL2,phonenumber,projectid);
