@@ -8,24 +8,12 @@
     tools:context="de.fh_muenster.projectxx.new_disc">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/newDiscAddKommentar"
-        android:textColor="@color/textColor"
-        android:id="@+id/addDiscTxt"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/edtQuest"
-        android:layout_below="@+id/addDiscTxt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="@string/newdisc"

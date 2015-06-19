@@ -10,6 +10,7 @@ import java.net.Proxy;
 import java.util.ArrayList;
 
 import de.fh_muenster.projectxx.Device.DeviceService;
+import de.project.dto.project.ProjectTO;
 import de.project.dto.user.UserTO;
 
 /**
@@ -24,14 +25,14 @@ public class ContactService {
         return  result;
     }
 
-    public static ArrayList<UserTO>  compaireContacts(ArrayList<String> contacts) throws SoapFault{
+    public static ArrayList<UserTO>  compaireContacts(ProjectTO project, ArrayList<String> contacts) throws SoapFault{
         String method = "comparePhonebook";
-        SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL2,contacts);
+        SoapObject result = (SoapObject)SoapService.executeSoapAction(method,SoapService.URL2,project.getId(),contacts);
         System.out.println("ZUrück im Service");
         //ArrayList zu Projekten Aufbauen
         ArrayList<UserTO> users = new ArrayList<UserTO>();
         System.out.println(result.getPropertyCount());
-        for(int i = 0;i< result.getPropertyCount();i++)
+        for(int i = 1;i< result.getPropertyCount();i++)
         {
 
             SoapObject object = (SoapObject) result.getProperty(i);

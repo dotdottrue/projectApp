@@ -12,8 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import de.fh_muenster.projectxx.Adapter.AppointmentArrayAdapter;
+import de.fh_muenster.projectxx.Adapter.PostArrayAdapter;
 import de.fh_muenster.projectxx.R;
 import de.fh_muenster.projectxx.soap.AppointmentService;
 import de.project.dto.appointment.AppointmentTO;
@@ -30,6 +33,8 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
     private ListView appList;
     private Activity activity;
     private ArrayList<String> appointmentTopicList = new ArrayList<String>();
+    private ArrayList<String> appointmentDates = new ArrayList<String>();
+    static final long ONE_HOUR = 60 * 60 * 1000L;
 
     public  ListAppointmentsTask (ProjectTO project, Context con, Application ap,Activity activity){
         this.project = project;
@@ -68,9 +73,10 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
 
             //Listview setzen
             appList = (ListView)this.activity.findViewById(R.id.lv_appointment);
+            AppointmentArrayAdapter adapter = new AppointmentArrayAdapter(this.activity,this.appointmentTopicList,this.appointmentDates);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, appointmentTopicList);
+            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
+            //        R.layout.listitemdetails2, R.id.listViewDetailItem2, appointmentTopicList);
 
             // Assign adapter to ListView
             appList.setAdapter(adapter);
@@ -106,7 +112,30 @@ public class ListAppointmentsTask extends AsyncTask<String,String,List<Appointme
     private void createAppointmentList(List<AppointmentTO> result){
         for(AppointmentTO a : result){
             this.appointmentTopicList.add(a.getTopic());
+            Date appointmentDate = new Date();
+            appointmentDate.setTime(a.getAppointmentDate());
+            Date today = new Date();
+            long days = daysBetween(today,appointmentDate);
+            if(days <= 0)
+            {
+                this.appointmentDates.add("Heute fällig");
+            }
+            else if(days == 1)
+            {
+                this.appointmentDates.add("Morgen fällig");
+            }
+            else
+            {
+                this.appointmentDates.add("Fällig in: " + days + " Tagen");
+            }
+
+
+
         }
 
+    }
+
+    public long daysBetween(Date d1, Date d2){
+        return ( (d2.getTime() - d1.getTime() + ONE_HOUR) / (ONE_HOUR * 24));
     }
 }

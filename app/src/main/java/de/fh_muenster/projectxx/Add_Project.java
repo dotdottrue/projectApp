@@ -19,7 +19,8 @@ import de.project.dto.project.ProjectTO;
 
 public class Add_Project extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "cde.fh_muenster.projectxx.MESSAGE";
-    EditText nameTxt, describeTxt;
+    private EditText nameTxt, describeTxt;
+
 
 
     @Override
@@ -54,6 +55,7 @@ public class Add_Project extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), "Projekt wurde erstellt", Toast.LENGTH_SHORT).show();
                 Project project = new Project(nameTxt.getText().toString(), describeTxt.getText().toString());
                 createProject(project);
+
                 finish();
 
 
@@ -88,6 +90,8 @@ public class Add_Project extends ActionBarActivity {
     private void createProject(Project p){
         NewProjectTask task = new NewProjectTask(getApplicationContext(),getApplication(),p, DeviceService.getMyPhonenumber(getApplicationContext()));
         task.execute(p);
+        Intent i = new Intent(this,List_Projects.class);
+        startActivity(i);
 
     }
 

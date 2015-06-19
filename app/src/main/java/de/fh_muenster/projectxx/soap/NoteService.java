@@ -31,9 +31,11 @@ public class NoteService {
                 NoteTO note = new NoteTO();
                 note.setNote(object.getProperty("note").toString());
                 String id = object.getProperty("id").toString();
+
                 Long lid = Long.valueOf(id).longValue();
                 long test = lid;
                 note.setId(test);
+                note.setUser(object.getProperty("user").toString());
                 posts.add(note);
             }
 

@@ -92,7 +92,7 @@ public class ListDiscussionsTask extends AsyncTask<ProjectTO,String,List<Discuss
             disc = (ListView)this.activity.findViewById(R.id.lv_disc);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, discussionNames);
+                    R.layout.listitemdetails, R.id.listViewDetailItem, discussionNames);
 
             // Assign adapter to ListView
             disc.setAdapter(adapter);

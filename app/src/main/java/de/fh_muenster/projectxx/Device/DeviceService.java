@@ -15,8 +15,21 @@ import java.util.HashMap;
  */
 public class DeviceService {
 
+    public static HashMap<String,String> myContacts;
+    public static String myPhoneNumber;
+
     public static String getMyPhonenumber(Context context){
         TelephonyManager phn_mngr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        myPhoneNumber = phn_mngr.getLine1Number().replaceAll("\\+","");
+        if(myPhoneNumber.startsWith("0")){
+            String s1 = myPhoneNumber.substring(1);
+            myPhoneNumber = "49"+s1;
+        }
+        myPhoneNumber = myPhoneNumber.replaceAll(" ", "");
+        myPhoneNumber = myPhoneNumber.replaceAll("\\+", "");
+        myPhoneNumber = myPhoneNumber.replaceAll("/", "");
+
+
         return phn_mngr.getLine1Number().replaceAll("\\+","");
     }
 
@@ -69,10 +82,11 @@ public class DeviceService {
                         phoneNumber = phoneNumber.replaceAll(" ", "");
                         phoneNumber = phoneNumber.replaceAll("\\+", "");
                         phoneNumber = phoneNumber.replaceAll("/", "");
-                        output.append("\n Phone number:" + phoneNumber);
+
                         myContacts.put(phoneNumber.trim(),name);
 
                     }
+                    myContacts.put(DeviceService.myPhoneNumber,"Du");
 
                     phoneCursor.close();
 

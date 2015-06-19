@@ -1,6 +1,8 @@
 package de.fh_muenster.projectxx.soap;
 
 
+import android.widget.Switch;
+
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 
@@ -11,6 +13,7 @@ import de.fh_muenster.projectxx.Project;
 import de.project.dto.project.ProjectResponse;
 import de.project.dto.project.ProjectTO;
 import de.project.dto.project.ProjectsResponse;
+import de.project.enumerations.ProjectStatus;
 
 /**
  * Created by user on 08.06.15.
@@ -35,6 +38,21 @@ public class ProjectService {
                 ProjectTO project = new ProjectTO();
                 project.setProjectName(object.getProperty("projectName").toString());
                 project.setDescription(object.getProperty("description").toString());
+                String status = object.getProperty("projectStatus").toString();
+                switch(status) {
+                    case "INTIME":
+                        project.setProjectStatus(ProjectStatus.INTIME);
+                        break;
+                    case "DELAYED":
+                        project.setProjectStatus(ProjectStatus.DELAYED);
+                        break;
+                    case "OUTOFTIME":
+                        project.setProjectStatus(ProjectStatus.OUTOFTIME);
+                        break;
+                    default:
+                        project.setProjectStatus(ProjectStatus.FINISHED);
+                }
+
                 String id = object.getProperty("id").toString();
                 Long lid = Long.valueOf(id).longValue();
                 long test = lid;

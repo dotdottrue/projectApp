@@ -43,7 +43,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="@color/textColor"/>
+        android:textColor="@color/uberschrif"/>
 
     <ListView
         style="@style/LiestviewStyle"

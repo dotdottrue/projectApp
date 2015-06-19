@@ -52,7 +52,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
         try {
             List<UserTO> userList = null;
             ArrayList<String> contactPhonenumbers = DeviceService.getMyContactsPhonenumbers(this.app.getContentResolver());
-            userList = (List<UserTO>) ContactService.compaireContacts(contactPhonenumbers);
+            userList = (List<UserTO>) ContactService.compaireContacts(this.project, contactPhonenumbers);
             return userList;
         }
         catch (Exception e) {
@@ -88,7 +88,7 @@ public class ListContactsTask extends AsyncTask<ProjectTO,String,List<UserTO>> {
             this.contacts = (ListView)this.activity.findViewById(R.id.contactlist);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, this.contactNames);
+                    R.layout.listview, R.id.listTextView, this.contactNames);
 
             // Assign adapter to ListView
             this.contacts.setAdapter(adapter);

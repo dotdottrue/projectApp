@@ -13,11 +13,15 @@ import android.widget.Toast;
 import org.ksoap2.SoapFault;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import de.fh_muenster.projectxx.Adapter.PostArrayAdapter;
+import de.fh_muenster.projectxx.Device.DeviceService;
 import de.fh_muenster.projectxx.ForumPosts;
 import de.fh_muenster.projectxx.Project;
 import de.fh_muenster.projectxx.R;
+import de.fh_muenster.projectxx.soap.ContactService;
 import de.fh_muenster.projectxx.soap.NoteService;
 import de.fh_muenster.projectxx.soap.ProjectService;
 import de.project.dto.note.NoteTO;
@@ -34,6 +38,7 @@ public class ListNotesTask extends AsyncTask<DiscussionTO,String,List<NoteTO>> {
     private Application app;
     private String userid;
     private ForumPosts activity;
+    private HashMap<String,String> contacts;
 
     public ListNotesTask(Context c, Application a, DiscussionTO disc, String userid, ForumPosts activity){
         this.context = c;
@@ -41,6 +46,7 @@ public class ListNotesTask extends AsyncTask<DiscussionTO,String,List<NoteTO>> {
         this.discussion = disc;
         this.userid = userid;
         this.activity = activity;
+        this.contacts = DeviceService.myContacts;
     }
 
     protected List<NoteTO> doInBackground(DiscussionTO... params) {
@@ -67,8 +73,10 @@ public class ListNotesTask extends AsyncTask<DiscussionTO,String,List<NoteTO>> {
         else {
             //Notes zur Anzeige auslesen
             ArrayList<String> noteNames = new ArrayList<String>();
+            ArrayList<String> noteUsers = new ArrayList<String>();
             for(NoteTO note : result){
                 noteNames.add(note.getNote());
+                noteUsers.add(this.contacts.get(note.getUser().trim()));
             }
 
             // Get ListView object from xml
@@ -80,8 +88,9 @@ public class ListNotesTask extends AsyncTask<DiscussionTO,String,List<NoteTO>> {
             // Third parameter - ID of the TextView to which the data is written
             // Forth - the Array of data
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, noteNames);
+            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.activity,
+            //        R.layout.listview, R.id.listTextView, noteNames);
+            PostArrayAdapter adapter = new PostArrayAdapter(this.activity,noteNames,noteUsers);
 
             // Assign adapter to ListView
             lvPost.setAdapter(adapter);

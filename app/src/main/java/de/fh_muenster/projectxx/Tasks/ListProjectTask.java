@@ -16,6 +16,8 @@ import org.ksoap2.SoapFault;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fh_muenster.projectxx.Adapter.AppointmentArrayAdapter;
+import de.fh_muenster.projectxx.Adapter.ProjectListAdapter;
 import de.fh_muenster.projectxx.List_Projects;
 import de.fh_muenster.projectxx.Project;
 import de.fh_muenster.projectxx.ProjectDetail;
@@ -36,6 +38,7 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
     private ListView listView;
     public ProjectTO selectedProject;
     private List<ProjectTO> projectTOList = new ArrayList<ProjectTO>();
+    private ArrayList<String> projectStatus = new ArrayList<String>();
 
 
     public ListProjectTask(Context c, Application app, String u, List_Projects act){
@@ -77,8 +80,10 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
             //Listview setzen
             listView = (ListView)this.activity.findViewById(R.id.listView);
             activity.registerForContextMenu(listView);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, projectListNames);
+            ProjectListAdapter adapter = new ProjectListAdapter(this.activity,this.projectListNames,this.projectStatus);
+
+            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
+            //        R.layout.listview, R.id.listTextView, projectListNames);
 
             // Assign adapter to ListView
             listView.setAdapter(adapter);
@@ -125,6 +130,7 @@ public class ListProjectTask extends AsyncTask<String,String,List<ProjectTO>> {
     private void createProjectList(List<ProjectTO> projects){
         for(ProjectTO project : projects) {
             projectListNames.add(project.getProjectName());
+            projectStatus.add("Status: " + project.getProjectStatus().toString());
 
 
         }

@@ -48,9 +48,11 @@ public class List_Projects extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DeviceService.getMyPhonenumber(getApplicationContext());
+        DeviceService.myContacts = DeviceService.getMyContacts(getContentResolver());
 
         setContentView(R.layout.activity_list__projects);
-
+        listView = (ListView) findViewById(R.id.listView);
         try{
             firstSteps();
 
@@ -65,7 +67,7 @@ public class List_Projects extends ActionBarActivity {
         }
         /*
         // Get ListView object from xml
-        listView = (ListView) findViewById(R.id.listView);
+
 
         // Define a new Adapter
         // First parameter - Context
@@ -126,6 +128,8 @@ public class List_Projects extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.action_addProject:
                 openNewProject();
+                this.finish();
+
                 return true;
             case R.id.action_settings:
                 //openSettings();
@@ -278,6 +282,9 @@ public class List_Projects extends ActionBarActivity {
         }
 
     }
+
+
+
 
 
 }
