@@ -4,18 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
 import org.ksoap2.SoapFault;
-
-import java.util.List;
-
 import de.fh_muenster.projectxx.soap.AppointmentService;
-import de.fh_muenster.projectxx.soap.ProjectService;
 import de.project.dto.appointment.AppointmentTO;
 import de.project.dto.project.ProjectTO;
 
 /**
- * Created by user on 19.06.15.
+ * Diese Klasse verwaltet das löschen von Terminen zum Server
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 19.06.15
  */
 public class RemoveAppointmentTask extends AsyncTask<ProjectTO,String,String> {
     private ProjectTO project;
@@ -23,6 +20,13 @@ public class RemoveAppointmentTask extends AsyncTask<ProjectTO,String,String> {
     private Application app;
     private AppointmentTO appointment;
 
+    /**
+     * Default Konstruktor
+     * @param c Aktueller Context
+     * @param a Aktuelle Application
+     * @param p Aktuelles Projekt
+     * @param ap    Aktuelle Activity
+     */
     public RemoveAppointmentTask(Context c, Application a, ProjectTO p, AppointmentTO ap){
         this.context = c;
         this.app = a;
@@ -30,6 +34,11 @@ public class RemoveAppointmentTask extends AsyncTask<ProjectTO,String,String> {
         this.appointment = ap;
     }
 
+    /**
+     * Diese Methode erzeugt einen neuen Thread zum abarbeiten der Datenaufbereitung sowie Serververbindung
+     * @param params
+     * @return
+     */
     protected String doInBackground(ProjectTO... params) {
         try {
             AppointmentService.deleteAppointment(this.project, this.appointment);
@@ -41,9 +50,16 @@ public class RemoveAppointmentTask extends AsyncTask<ProjectTO,String,String> {
         return null;
     }
 
+    /**
+     * Verwaltet änderungen während des Jobs
+     * @param values
+     */
     protected void onProgessUpdate(Integer... values) {
     }
 
+    /**
+     * Verarbeitet die Resultate nach dem Job
+     */
     protected void onPostExecute() {
 
     }

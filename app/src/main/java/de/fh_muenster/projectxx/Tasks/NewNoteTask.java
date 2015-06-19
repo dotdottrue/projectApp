@@ -4,18 +4,16 @@ import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
 import org.ksoap2.SoapFault;
-
-import de.fh_muenster.projectxx.soap.ForumService;
 import de.fh_muenster.projectxx.soap.NoteService;
-
 import de.project.dto.discussion.DiscussionTO;
 import de.project.dto.note.NoteTO;
-import de.project.dto.project.ProjectTO;
+
 
 /**
- * Created by user on 17.06.15.
+ * Diese Klasse verwaltet das erzeugen eines Posts zu einer Disksussion zum Server
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 17.06.15
  */
 public class NewNoteTask extends AsyncTask<NoteTO,String,String> {
     private DiscussionTO discussion;
@@ -24,6 +22,13 @@ public class NewNoteTask extends AsyncTask<NoteTO,String,String> {
     private String userid;
 
 
+    /**
+     * Default konstruktor
+     * @param c Aktueller Context
+     * @param a Aktuelle Application
+     * @param p Aktuelle Diskussion
+     * @param u eigene Telefonnummer
+     */
     public NewNoteTask(Context c, Application a, DiscussionTO p, String u){
         this.context = c;
         this.app = a;
@@ -31,6 +36,11 @@ public class NewNoteTask extends AsyncTask<NoteTO,String,String> {
         this.userid = u;
     }
 
+    /**
+     * Diese Methode erzeugt einen neuen Thread zum abarbeiten der Datenaufbereitung sowie Serververbindung
+     * @param params
+     * @return
+     */
     protected String doInBackground(NoteTO... params) {
         try {
             NoteService.addPost(this.discussion,params[0],this.userid);
@@ -42,9 +52,16 @@ public class NewNoteTask extends AsyncTask<NoteTO,String,String> {
         return null;
     }
 
+    /**
+     * Verwaltet änderungen während des Jobs
+     * @param values
+     */
     protected void onProgessUpdate(Integer... values) {
     }
 
+    /**
+     * Verarbeitet die Resultate nach dem Job
+     */
     protected void onPostExecute() {
 
     }

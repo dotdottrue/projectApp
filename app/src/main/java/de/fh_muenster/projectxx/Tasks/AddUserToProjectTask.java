@@ -4,25 +4,32 @@ import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
-import org.ksoap2.SoapFault;
-
-import de.fh_muenster.projectxx.Project;
-import de.fh_muenster.projectxx.soap.NoteService;
 import de.fh_muenster.projectxx.soap.ProjectService;
-import de.project.dto.note.NoteTO;
-import de.project.dto.discussion.DiscussionTO;
 
 /**
- * Created by user on 18.06.15.
+ * Dieser Taskmanager wird zum Useradden genutzt und erzeugt hierzu einen weiteren Thread
+ * @author Dennis Russ
+ * @version 1.0 Erstellt am 18.06.15
  */
 public class AddUserToProjectTask extends AsyncTask<String,String,String> {
+    /**
+     * Dazu werden benötigt:
+     * Die Telefonnummer des Kontakts
+     * Die Projektid
+     * Sowie der Activity Context und die Application an sich
+     */
     private Context context;
     private Application app;
     private String phonenumber;
     private long projectid;
 
-
+    /**
+     * Default Konstruktor
+     * @param c Aktueller Context
+     * @param a Aktuelle Applikation
+     * @param phonenumber
+     * @param projectid
+     */
     public AddUserToProjectTask(Context c, Application a, String phonenumber, long projectid){
         this.context = c;
         this.app = a;
@@ -30,6 +37,11 @@ public class AddUserToProjectTask extends AsyncTask<String,String,String> {
         this.phonenumber = phonenumber;
     }
 
+    /**
+     * Erzeugt ein neues Thread und bereitet die Daten auf und stellt die Server verbindung her
+     * @param params
+     * @return
+     */
     protected String doInBackground(String... params) {
         try {
             ProjectService.addUserToProject(this.phonenumber,this.projectid);
@@ -41,9 +53,16 @@ public class AddUserToProjectTask extends AsyncTask<String,String,String> {
         return null;
     }
 
+    /**
+     * Verwaltet änderungen während des Jobs
+     * @param values
+     */
     protected void onProgessUpdate(Integer... values) {
     }
 
+    /**
+     * Im Anschluss der Servicemethoden werden hier die Ergebnisse aufbereitet
+     */
     protected void onPostExecute() {
 
     }
