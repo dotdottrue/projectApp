@@ -52,23 +52,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/termin"
         android:text="@string/termin"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="190dp"
+
         android:textColor="@color/uberschrif"
-        android:textSize="24sp"/>
+        android:textSize="24sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="140dp" />
 
     <ListView
         style="@style/LiestviewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="5sp"
         android:id="@+id/lv_disc"
-        android:layout_below="@+id/disc"
+
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/disc"
         android:layout_alignBottom="@+id/termin" />
-
     <ListView
         style="@style/LiestviewStyle"
         android:layout_width="wrap_content"
@@ -77,6 +78,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/lv_disc" />
+
+
 
 
 </RelativeLayout>

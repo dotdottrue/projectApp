@@ -32,8 +32,8 @@ public class SoapService {
      * server hosting the web service (or "10.0.2.15 instead of 'localhost' when running in the emulator).
      */
 
-    public static final String URL = "http://192.168.1.105:8080/project/UserIntegration?wsdl";
-    public static final String URL2 = "http://192.168.1.105:8080/project/ProjectIntegration?wsdl";
+    public static final String URL = "http://192.168.1.102:8080/project/UserIntegration?wsdl";
+    public static final String URL2 = "http://192.168.1.102:8080/project/ProjectIntegration?wsdl";
 
     /**
      * Diese Methode delegiert einen Methodenaufruf an den hinterlegten WebService.
